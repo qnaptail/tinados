@@ -17,9 +17,9 @@ set -ouex pipefail
 
 # install niri and dankmaterialshell
 # https://github.com/YaLTeR/niri/wiki/Getting-Started
-dnf4 -y copr enable avengemedia/dms
+dnf-3 -y copr enable avengemedia/dms
 dnf5 -y install niri dms
-dnf4 -y copr disable avengemedia/dms
+dnf-3 -y copr disable avengemedia/dms
 
 # install Distrobox and Flatpak
 dnf5 -y install distrobox flatpak
