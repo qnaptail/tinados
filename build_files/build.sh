@@ -17,12 +17,19 @@ set -ouex pipefail
 
 # install niri and dankmaterialshell
 # https://github.com/YaLTeR/niri/wiki/Getting-Started
+# dnf -y install dnf5-plugins
+# dnf config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+
+dnf -y upgrade --refresh
 dnf -y copr enable avengemedia/dms
 dnf -y install niri dms
 dnf -y copr disable avengemedia/dms
 
 # install Distrobox and Flatpak
 dnf -y install distrobox flatpak
+
+# install foot terminal and fira code fonts
+dnf -y install foot fira-code-fonts
 
 # Use a COPR Example:
 #
