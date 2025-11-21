@@ -20,6 +20,10 @@ set -ouex pipefail
 # dnf -y install dnf5-plugins
 # dnf config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
 
+# group install
+dnf5 -y group install hardware-support
+
+
 # dnf -y upgrade --refresh
 dnf5 -y install 'dnf5-command(copr)'
 dnf5 -y copr enable avengemedia/dms
@@ -29,8 +33,8 @@ dnf5 -y copr disable avengemedia/dms
 # install Distrobox and Flatpak
 dnf5 -y install distrobox flatpak
 
-# install foot terminal and fira code fonts
-dnf5 -y install foot fira-code-fonts
+# install foot terminal and utils, fira code fonts
+dnf5 -y install foot vim fira-code-fonts
 
 # Use a COPR Example:
 #
