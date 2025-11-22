@@ -74,6 +74,7 @@ dnf5 -y install --setopt=install_weak_deps=False \
         dms \
         dms-greeter
 
+
 # dnf5 -y install --setopt=install_weak_deps=False \
 #         dms \
 #         dms-cli \
