@@ -43,12 +43,10 @@ dnf5 -y copr disable avengemedia/dms
 ## Package and software management : Distrobox, Flatpak and Nix
 # https://github.com/89luca89/distrobox
 # https://docs.flatpak.org/en/latest/getting-started.html
-# dnf5 -y install \
-#         distrobox \
-#         flatpak
-
 dnf5 -y install \
-        distrobox
+        distrobox \
+        flatpak
+
 
 ## Terminal utils
 dnf5 -y install \
@@ -57,7 +55,17 @@ dnf5 -y install \
         vim \
         fira-code-fonts
 
+
 ### Systemd units
 systemctl enable podman.socket
 systemctl enable systemd-timesyncd
 systemctl enable systemd-resolved.service
+
+
+### Troubleshooting
+
+# The systemd-remount-fs service fails on boot because the root filesystem on an ostree system is read-only by design. We can mask it to avoid harmless log errors.
+systemctl mask systemd-remount-fs.service
+
+# Force the system to create any missing system users and groups from its default configuration files.
+systemd-sysusers
