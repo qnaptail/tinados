@@ -14,8 +14,8 @@ dnf5 -y group install \
         hardware-support
 
 # Network
-dnf5 -y install \
-        NetworkManager-wifi
+# dnf5 -y install \
+#         NetworkManager-wifi
 
 # Audio
 # dnf5 -y install \
@@ -71,7 +71,11 @@ add_wants_niri udiskie.service
 
 # sed -i 's|spawn-at-startup "waybar"|// spawn-at-startup "waybar"|' "/usr/share/doc/niri/default-config.kdl"
 
+mkdir /var/cache/dms-greeter
+chown greetd:greetd /var/cache/dms-greeter
+
 sed -i 's|user = "greeter"|user = "greetd"|' "/etc/greetd/config.toml"
+sed -i '/gnome_keyring.so/ s/-auth/auth/ ; /gnome_keyring.so/ s/-session/session/' /etc/pam.d/greetd
 
 # systemctl enable greetd
 
