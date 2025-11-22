@@ -29,8 +29,7 @@ dnf5 -y install \
 
 # Lenovo thinkpad power and fan control
 dnf5 -y install \
-        thinkfan \
-        fancontrol-gui
+        thinkfan
 
 ## Desktop environment : Niri window manager and DankMaterial shell
 # https://github.com/YaLTeR/niri/wiki/Getting-Started
@@ -52,7 +51,6 @@ dnf5 -y install \
         distrobox \
         flatpak
 
-
 ## Terminal utils
 dnf5 -y install \
         foot \
@@ -60,12 +58,10 @@ dnf5 -y install \
         vim \
         fira-code-fonts
 
-
 ### Systemd units
 systemctl enable podman.socket
 systemctl enable systemd-timesyncd
 systemctl enable systemd-resolved.service
-
 
 ### Troubleshooting
 
@@ -81,6 +77,5 @@ systemctl mask systemd-remount-fs.service
 #       u usbmuxd 113:113 "usbmuxd user"
 # we can comment the first line in the config file :
 # sed -i 's|\(g\s*usbmuxd\s*113\)|# \1|' /usr/lib/sysusers.d/usbmuxd.conf
-sed -i 's|113:113|113|' /usr/lib/sysusers.d/usbmuxd.conf
 # we can also remove the package :
-# dnf5 -y remove usbmuxd
+dnf5 -y remove usbmuxd
