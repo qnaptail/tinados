@@ -35,7 +35,7 @@ dnf5 -y install \
         dms
 dnf5 -y copr disable avengemedia/dms
 
-systemctl --user add-wants niri.service dms
+# systemctl --user add-wants niri.service dms
 
 ## Package and software management : Distrobox, Flatpak and Nix
 # https://github.com/89luca89/distrobox
