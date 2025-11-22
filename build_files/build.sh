@@ -69,7 +69,9 @@ add_wants_niri dms.service
 add_wants_niri udiskie.service
 # add_wants_niri foot.service
 
-sed -i 's|spawn-at-startup "waybar"|// spawn-at-startup "waybar"|' "/usr/share/doc/niri/default-config.kdl"
+# sed -i 's|spawn-at-startup "waybar"|// spawn-at-startup "waybar"|' "/usr/share/doc/niri/default-config.kdl"
+
+sed -i 's|user = "greeter"|user = "greetd"|' "/etc/greetd/config.toml"
 
 # systemctl enable greetd
 
