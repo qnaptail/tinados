@@ -123,14 +123,15 @@ dnf5 -y install \
 
 # Theming
 dnf5 -y install \
-        adw-gtk3-theme \
-        qt6ct
+        adw-gtk3-theme
 
 # Terminal utils
+# (foot)
 dnf5 -y install \
-        foot \
         fish \
-        vim
+        vim \
+        zoxide \
+        fzf
 
 dnf5 -y copr enable atim/starship
 dnf5 -y install starship
