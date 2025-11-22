@@ -11,7 +11,9 @@ set -ouex pipefail
 
 ## Hardware and system packages
 dnf5 -y group install \
-        hardware-support \
+        hardware-support
+
+dnf5 -y install \
         glibc-langpack-fr
 
 # Network
