@@ -13,6 +13,17 @@ set -ouex pipefail
 # dnf5 -y install \
 #         @hardware-support
 
+dnf5 -y install \
+        pciutils \
+        usbutils \
+        usb_modeswitch \
+        intel-audio-firmware \
+        iwlwifi-dvm-firmware \
+        iwlwifi-mld-firmware \
+        iwlwifi-mvm-firmware \
+        intel-gpu-firmware \
+        realtek-firmware
+
 # Network
 dnf5 -y install \
         NetworkManager-wifi
@@ -53,11 +64,15 @@ dnf5 -y install \
         tuigreet \
         udiskie \
         gnome-keyring \
-        gnome-keyring-pam
+        gnome-keyring-pam \
+        fprintd \
+        fprintd-pam
 
 dnf5 -y install 'dnf5-command(copr)'
 dnf5 -y copr enable avengemedia/dms
-dnf5 -y install --setopt=install_weak_deps=False dms
+dnf5 -y install --setopt=install_weak_deps=False \
+        dms \
+        dms-greater
 
 # dnf5 -y install --setopt=install_weak_deps=False \
 #         dms \
@@ -75,9 +90,9 @@ add_wants_niri udiskie.service
 # add_wants_niri foot.service
 
 # sed -i 's|spawn-at-startup "waybar"|// spawn-at-startup "waybar"|' "/usr/share/doc/niri/default-config.kdl"
-
-systemctl enable --global gnome-keyring-daemon.socket
-systemctl enable --global gnome-keyring-daemon.service
+#
+# systemctl enable --global gnome-keyring-daemon.socket
+# systemctl enable --global gnome-keyring-daemon.service
 
 mkdir /var/cache/dms-greeter
 chown greetd:greetd /var/cache/dms-greeter
@@ -86,7 +101,7 @@ chown greetd:greetd /var/cache/dms-greeter
 sed -i 's|user = "greeter"|user = "greetd"|' "/etc/greetd/config.toml"
 sed -i '/gnome_keyring.so/ s/-auth/auth/ ; /gnome_keyring.so/ s/-session/session/' /etc/pam.d/greetd
 
-# systemctl enable greetd
+systemctl enable greetd
 
 ## Package and software management : Distrobox, Flatpak and Nix
 # https://github.com/89luca89/distrobox
