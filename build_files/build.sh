@@ -110,29 +110,32 @@ dnf5 -y install \
 # systemctl enable flatpak-add-flathub-repos.service
 
 
-## Terminal utils
+## Utils
 
-# Locale and fonts
-dnf5 -y install \
-        glibc-langpack-fr \
-        glibc-langpack-en \
-        default-fonts-core-emoji \
-        google-noto-color-emoji-fonts \
-        google-noto-emoji-fonts \
-        fira-code-fonts \
-        jetbrains-mono-fonts
-
-# Theming
-dnf5 -y install \
-        adw-gtk3-theme
-
-# Terminal utils
+# Terminal
 # (foot)
 dnf5 -y install \
         fish \
         vim \
         zoxide \
-        fzf
+        fzf \
+        p7zip
+
+# # Locale and fonts
+#         default-fonts-core-emoji \
+#         google-noto-color-emoji-fonts \
+#         google-noto-emoji-fonts \
+#         fira-code-fonts \
+#         jetbrains-mono-fonts
+dnf5 -y install \
+        glibc-langpack-fr \
+        glibc-langpack-en \
+        cascadia-code-nf-fonts.noarch \
+        cascadia-mono-nf-fonts.noarch \
+
+# Theming
+dnf5 -y install \
+        adw-gtk3-theme
 
 dnf5 -y copr enable atim/starship
 dnf5 -y install starship
@@ -142,6 +145,8 @@ dnf5 -y copr disable atim/starship
 systemctl enable podman.socket
 systemctl enable systemd-timesyncd
 systemctl enable systemd-resolved.service
+
+systemctl mask rpm-ostree-countme.timer
 
 ### Troubleshooting
 
