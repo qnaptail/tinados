@@ -1,0 +1,28 @@
+
+
+Create user ?
+
+Do this for all users
+
+
+## disable waybar on niri startup and enable dms instead
+sed -i 's|spawn-at-startup "waybar"|// spawn-at-startup "waybar"|' /var/home/xu/.config/niri/config.kdl
+
+## fonts install
+wget -P https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.tar.xz
+wget -P https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.tar.xz
+wget -P https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraMono.tar.xz
+mkdir ~/.local/share/fonts
+unzip
+fc-cache -fv
+
+
+stow to manage dotfiles
+
+manage flatpak apps
+
+# TODO: LATEX env -- in distrobox ??
+# texlive
+
+# TODO: audiolibrary : beet
+# distrobox ??

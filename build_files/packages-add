@@ -1,0 +1,117 @@
+####################################################
+# List of packages to install on top of base image
+####################################################
+
+###
+## Hardware and system
+
+# @hardware-support
+
+# Info
+pciutils
+usbutils
+vulkan-tools
+libva-utils
+lm_sensors
+ntfs3g
+
+# Network
+NetworkManager-wifi
+iwlwifi-dvm-firmware
+iwlwifi-mld-firmware
+iwlwifi-mvm-firmware
+usb_modeswitch
+nmap
+bind-utils
+nfs-utils
+wget
+wol
+firewalld
+wireguard-tools
+tailscale
+
+# Audio
+alsa-firmware
+alsa-sof-firmware
+alsa-tools-firmware
+intel-audio-firmware
+easyeffects
+
+# Power and fan control
+power-profiles-daemon
+zcfan
+#powertop
+#ltp
+
+# Fingerprint sensor
+fprintd
+fprintd-pam
+
+# Locale and fonts
+glibc-langpack-fr
+glibc-langpack-en
+
+# Virtualisation
+qemu-kvm
+libvirt
+virt-install
+virt-viewer
+
+###
+## Desktop environment : Niri window manager and DankMaterial shell
+# https://github.com/YaLTeR/niri/wiki/Getting-Started
+# https://github.com/AvengeMedia/DankMaterialShell
+
+niri
+dms
+dms-greeter
+greetd
+greetd-selinux
+udiskie
+gnome-keyring
+gnome-keyring-pam
+
+###
+## Package and software management
+distrobox
+flatpak
+
+
+###
+## Terminal / Shell utils
+
+# Theming and fonts
+adw-gtk3-theme
+default-fonts-core-emoji
+google-noto-color-emoji-fonts
+google-noto-emoji-fonts
+# fira-code-fonts
+# jetbrains-mono-fonts
+# cascadia-code-nf-fonts
+# cascadia-mono-nf-fonts
+
+# Terminal utils
+fish
+zoxide
+fzf
+starship
+bat
+jq
+ripgrep
+fd-find
+tldr
+yazi
+zellij
+git
+gitui
+gh
+vim-default-editor
+
+# Devops (distrobox ??)
+#ansible
+#vim-ansible
+#opentofu
+
+# Utils
+p7zip
+feh
