@@ -11,11 +11,11 @@ set -ouex pipefail
 
 # PREPARE PACKAGES
 # Save package list in /usr/
+mkdir -p /usr/local/share/os-template
 cp /ctx/packages-add /usr/local/share/os-template/packages-add
 cp /ctx/packages-remove /usr/local/share/os-template/packages-remove
 jq -r .packages[] /usr/share/rpm-ostree/treefile.json > /usr/local/share/os-template/packages-fedora-bootc
 chmod  0644 /usr/local/share/os-template/*
-
 
 # INSTALL THIRD PARTY REPOS
 dnf5 -y install 'dnf5-command(copr)'
