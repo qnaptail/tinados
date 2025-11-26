@@ -19,7 +19,6 @@ fc-cache -fv
 
 stow to manage dotfiles
 
-manage flatpak apps
 
 # TODO: LATEX env -- in distrobox ??
 # texlive

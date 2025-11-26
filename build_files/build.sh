@@ -25,7 +25,8 @@ dnf5 -y copr enable lihaohong/yazi
 dnf5 -y copr enable varlad/zellij
 
 # INSTALL PACKAGES
-grep -vE '^#' /usr/local/share/os-template/packages-add | xargs dnf5 -y install --allowerasing --setopt=install_weak_deps=False
+# grep -vE '^#' /usr/local/share/os-template/packages-add | xargs dnf5 -y install --allowerasing --setopt=install_weak_deps=False
+grep -vE '^#' /usr/local/share/os-template/packages-add | xargs dnf5 -y install --allowerasing
 
 # REMOVE PACKAGES
 # grep -vE '^#' /usr/local/share/os-template/packages-remove | xargs dnf5 -y remove
@@ -107,4 +108,4 @@ systemctl mask systemd-remount-fs.service
 # we can comment the first line in the config file :
 # sed -i 's|\(g\s*usbmuxd\s*113\)|# \1|' /usr/lib/sysusers.d/usbmuxd.conf
 # we can also remove the package :
-# dnf5 -y remove usbmuxd
+dnf5 -y remove usbmuxd

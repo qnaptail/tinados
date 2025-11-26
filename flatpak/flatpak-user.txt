@@ -1,0 +1,55 @@
+# https://flathub.org
+
+### App store
+#io.github.kolunmi.Bazaar
+
+### Manage Flatpak permissions
+#com.github.tchx84.Flatseal
+
+### Browsers
+#org.mozilla.firefox
+#org.chromium.Chromium
+#io.freetubeapp.FreeTube
+
+### Development
+#com.vscodium.codium
+#org.wezfurlong.wezterm
+#org.kde.kate
+#org.kde.dolphin
+#com.ranfdev.DistroShelf
+
+### Office
+#md.obsidian.Obsidian
+#org.libreoffice.LibreOffice
+#org.mozilla.Thunderbird
+
+### Media
+#io.mpv.Mpv
+#io.bassi.Amberol
+
+### Communication
+#com.discordapp.Discord
+#org.telegram.desktop
+
+### Gaming
+#com.valvesoftware.Steam
+#com.heroicgameslauncher.hgl
+#net.lutris.Lutris
+#com.usebottles.bottles
+
+### Audio effect processor for Pipewire
+#me.timschneeberger.jdsp4linux
+#com.github.wwmm.easyeffects
+
+### Firmware update
+#org.gnome.Firmware
+
+### Password management
+#com.bitwarden.desktop
+#org.keepassxc.KeePassXC
+
+### Fan control GUI (https://github.com/wiiznokes/fan-control)
+#io.github.wiiznokes.fan-control
+
+### Yt-dlp GUI
+#io.github.aandrew_me.ytdn
