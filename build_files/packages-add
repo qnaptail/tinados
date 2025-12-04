@@ -5,7 +5,7 @@
 ###
 ## Hardware and system
 
-# @hardware-support
+@hardware-support
 
 # Info
 pciutils
@@ -17,10 +17,10 @@ ntfs-3g
 
 # Network
 NetworkManager-wifi
-iwlwifi-dvm-firmware
-iwlwifi-mld-firmware
-iwlwifi-mvm-firmware
-usb_modeswitch
+#iwlwifi-dvm-firmware
+#iwlwifi-mld-firmware
+#iwlwifi-mvm-firmware
+#usb_modeswitch
 nmap
 #bind-utils
 #nfs-utils
@@ -31,9 +31,9 @@ wireguard-tools
 tailscale
 
 # Audio
-alsa-firmware
-alsa-sof-firmware
-alsa-tools-firmware
+#alsa-firmware
+#alsa-sof-firmware
+#alsa-tools-firmware
 #intel-audio-firmware
 easyeffects
 
@@ -50,12 +50,6 @@ fprintd-pam
 # Locale and fonts
 glibc-langpack-fr
 glibc-langpack-en
-
-# Virtualisation
-qemu-kvm
-libvirt
-virt-install
-virt-viewer
 
 ###
 ## Desktop environment : Niri window manager and DankMaterial shell
@@ -116,3 +110,11 @@ vim-default-editor
 # Utils
 p7zip
 feh
+
+
+# Virtualisation
+#qemu-kvm
+#libvirt
+#virt-install
+#virt-viewer
+#virt-manager
