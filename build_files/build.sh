@@ -27,10 +27,10 @@ dnf5 -y copr enable bieszczaders/kernel-cachyos
 
 # INSTALL PACKAGES
 # grep -vE '^#' /usr/local/share/os-template/packages-add | xargs dnf5 -y install --allowerasing --setopt=install_weak_deps=False
-grep -vE '^#' /usr/local/share/os-template/packages-add | xargs dnf5 -y install --allowerasing
+# grep -vE '^#' /usr/local/share/os-template/packages-add | xargs dnf5 -y install --allowerasing
 
 # REMOVE UNNECESSARY AND PROBLEMATIC PACKAGES
-grep -vE '^#' /usr/local/share/os-template/packages-remove | xargs dnf5 -y remove
+# grep -vE '^#' /usr/local/share/os-template/packages-remove | xargs dnf5 -y remove
 
 # SWITCH KERNEL TO CACHYOS KERNEL
 # create a shims to bypass kernel install triggering dracut/rpm-ostree
@@ -72,25 +72,25 @@ dnf5 clean all
 # https://github.com/YaLTeR/niri/wiki/Getting-Started
 # https://github.com/AvengeMedia/DankMaterialShell
 
-add_wants_niri() {
-    sed -i "s/\[Unit\]/\[Unit\]\nWants=$1/" "/usr/lib/systemd/user/niri.service"
-}
-
-add_wants_niri dms.service
-add_wants_niri udiskie.service
-# add_wants_niri swayidle.service
-add_wants_niri foot.service
-
-# sed -i 's|spawn-at-startup "waybar"|// spawn-at-startup "waybar"|' "/usr/share/doc/niri/default-config.kdl"
+# add_wants_niri() {
+#     sed -i "s/\[Unit\]/\[Unit\]\nWants=$1/" "/usr/lib/systemd/user/niri.service"
+# }
 #
-systemctl enable --global gnome-keyring-daemon.socket
-systemctl enable --global gnome-keyring-daemon.service
-
-mkdir /var/cache/dms-greeter
-chown greetd:greetd /var/cache/dms-greeter
-sed -i 's|user = "greeter"|user = "greetd"|' "/etc/greetd/config.toml"
-sed -i '/gnome_keyring.so/ s/-auth/auth/ ; /gnome_keyring.so/ s/-session/session/' /etc/pam.d/greetd
-systemctl enable greetd
+# add_wants_niri dms.service
+# add_wants_niri udiskie.service
+# # add_wants_niri swayidle.service
+# add_wants_niri foot.service
+#
+# # sed -i 's|spawn-at-startup "waybar"|// spawn-at-startup "waybar"|' "/usr/share/doc/niri/default-config.kdl"
+# #
+# systemctl enable --global gnome-keyring-daemon.socket
+# systemctl enable --global gnome-keyring-daemon.service
+#
+# mkdir /var/cache/dms-greeter
+# chown greetd:greetd /var/cache/dms-greeter
+# sed -i 's|user = "greeter"|user = "greetd"|' "/etc/greetd/config.toml"
+# sed -i '/gnome_keyring.so/ s/-auth/auth/ ; /gnome_keyring.so/ s/-session/session/' /etc/pam.d/greetd
+# systemctl enable greetd
 
 ## MISC
 # Enable Zram (ram compression to avoid swaping)
@@ -105,7 +105,7 @@ systemctl enable systemd-timesyncd
 systemctl enable systemd-resolved.service
 systemctl mask rpm-ostree-countme.timer
 # Lenovo thinkpad fan control
-systemctl enable zcfan.service
+# systemctl enable zcfan.service
 # Disabling wait-online to decrease the boot time
 systemctl disable NetworkManager-wait-online.service
 
