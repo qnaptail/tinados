@@ -27,4 +27,4 @@ dracut-config-rescue
 #       g usbmuxd 113
 #       u usbmuxd 113:113 "usbmuxd user"
 # we can remove the package usbmuxd
-#usbmuxd
+usbmuxd
