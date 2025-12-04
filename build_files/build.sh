@@ -23,48 +23,38 @@ dnf5 -y copr enable avengemedia/dms
 dnf5 -y copr enable atim/starship
 dnf5 -y copr enable lihaohong/yazi
 dnf5 -y copr enable varlad/zellij
+dnf5 -y copr enable bieszczaders/kernel-cachyos
 
 # INSTALL PACKAGES
-# grep -vE '^#' /usr/local/share/os-template/packages.list | xargs dnf5 -y install --allowerasing --setopt=install_weak_deps=False
-grep -vE '^#' /usr/local/share/os-template/packages.list | xargs dnf5 -y install --allowerasing
+# grep -vE '^#' /usr/local/share/os-template/packages-add | xargs dnf5 -y install --allowerasing --setopt=install_weak_deps=False
+grep -vE '^#' /usr/local/share/os-template/packages-add | xargs dnf5 -y install --allowerasing
+
+# REMOVE UNNECESSARY AND PROBLEMATIC PACKAGES
+grep -vE '^#' /usr/local/share/os-template/packages-remove | xargs dnf5 -y remove
 
 # SWITCH KERNEL TO CACHYOS KERNEL
-dnf5 -y copr enable bieszczaders/kernel-cachyos
 dnf5 -y remove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra
 dnf5 -y install kernel-cachyos
-dnf5 -y copr disable bieszczaders/kernel-cachyos
 # Lastly if you use SELinux, you need to enable the necessary policy to be able to load kernel modules.
 setsebool -P domain_kernel_load_modules on
 
-# REMOVE UNNECESSARY AND PROBLEMATIC PACKAGES
-dnf5 -y remove \
-        PackageKit-command-not-found \
-        at \
-        iptables-services \
-        iptables-utils \
-        rsyslog \
-        dracut-config-rescue \
-        dnf-data \
-        usbmuxd
-
-dnf5 -y autoremove
-
+# CLEANUP
 # Disable repos so they don't appear in final image
+dnf5 -y autoremove
 dnf5 -y copr disable avengemedia/dms
 dnf5 -y copr disable atim/starship
 dnf5 -y copr disable lihaohong/yazi
 dnf5 -y copr disable varlad/zellij
-
+dnf5 -y copr disable bieszczaders/kernel-cachyos
 dnf5 clean all
 
+## Package and software management : Distrobox, Flatpak and Nix
+# TODO: Install nix (https://gist.github.com/queeup/1666bc0a5558464817494037d612f094)
+# https://github.com/89luca89/distrobox
+# https://docs.flatpak.org/en/latest/getting-started.html
 
-# Enable Zram (ram compression to avoid swaping)
-tee /usr/lib/systemd/zram-generator.conf <<'EOF'
-[zram0]
-zram-size = min(ram / 2, 8192)
-EOF
 
-## Desktop environment : Niri window manager and DankMaterial shell
+## DESKTOP ENVIRONMENT : Niri window manager and DankMaterial shell
 # https://github.com/YaLTeR/niri/wiki/Getting-Started
 # https://github.com/AvengeMedia/DankMaterialShell
 
@@ -79,8 +69,8 @@ add_wants_niri foot.service
 
 # sed -i 's|spawn-at-startup "waybar"|// spawn-at-startup "waybar"|' "/usr/share/doc/niri/default-config.kdl"
 #
-# systemctl enable --global gnome-keyring-daemon.socket
-# systemctl enable --global gnome-keyring-daemon.service
+systemctl enable --global gnome-keyring-daemon.socket
+systemctl enable --global gnome-keyring-daemon.service
 
 mkdir /var/cache/dms-greeter
 chown greetd:greetd /var/cache/dms-greeter
@@ -88,10 +78,12 @@ sed -i 's|user = "greeter"|user = "greetd"|' "/etc/greetd/config.toml"
 sed -i '/gnome_keyring.so/ s/-auth/auth/ ; /gnome_keyring.so/ s/-session/session/' /etc/pam.d/greetd
 systemctl enable greetd
 
-## Package and software management : Distrobox, Flatpak and Nix
-# TODO: Install nix (https://gist.github.com/queeup/1666bc0a5558464817494037d612f094)
-# https://github.com/89luca89/distrobox
-# https://docs.flatpak.org/en/latest/getting-started.html
+## MISC
+# Enable Zram (ram compression to avoid swaping)
+tee /usr/lib/systemd/zram-generator.conf <<'EOF'
+[zram0]
+zram-size = min(ram / 2, 8192)
+EOF
 
 ### Systemd units
 systemctl enable podman.socket
