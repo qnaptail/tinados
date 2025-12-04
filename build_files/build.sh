@@ -42,8 +42,8 @@ printf '%s\n' '#!/bin/sh' 'exit 0' > 50-dracut.install
 chmod +x  05-rpmostree.install 50-dracut.install
 popd
 
-dnf5 -y remove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra
-dnf5 -y install kernel-cachyos
+dnf5 -y remove --no-autoremove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra
+dnf5 -y install kernel-cachyos kernel-cachyos-devel-matched
 
 pushd /usr/lib/kernel/install.d
 mv -f 05-rpmostree.install.bak 05-rpmostree.install
@@ -67,7 +67,6 @@ dnf5 clean all
 # TODO: Install nix (https://gist.github.com/queeup/1666bc0a5558464817494037d612f094)
 # https://github.com/89luca89/distrobox
 # https://docs.flatpak.org/en/latest/getting-started.html
-
 
 ## DESKTOP ENVIRONMENT : Niri window manager and DankMaterial shell
 # https://github.com/YaLTeR/niri/wiki/Getting-Started
@@ -107,6 +106,9 @@ systemctl enable systemd-resolved.service
 systemctl mask rpm-ostree-countme.timer
 # Lenovo thinkpad fan control
 systemctl enable zcfan.service
+# Disabling wait-online to decrease the boot time
+systemctl disable NetworkManager-wait-online.service
+
 
 ### Troubleshooting
 ## The systemd-remount-fs service fails on boot because the root filesystem on an ostree system is read-only by design.
