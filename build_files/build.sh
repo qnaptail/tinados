@@ -106,8 +106,6 @@ zram-size = min(ram / 2, 8192)
 EOF
 
 ### Systemd units
-systemctl restart systemd-sysusers
-
 systemctl enable podman.socket
 systemctl enable virtqemud
 systemctl enable systemd-timesyncd
@@ -125,6 +123,14 @@ systemctl disable NetworkManager-wait-online.service
 # https://gitlab.com/fedora/ostree/sig/-/issues/72
 systemctl mask systemd-remount-fs.service
 
+# The systemd-sysusers service is failing to started
+# systemd-sysusers return the following error : /etc/shadow: Group "usbmuxd" already exists.
+# the sysusers config is defined in the /usr/lib/sysusers.d/usbmuxd.conf
+#       g usbmuxd 113
+#       u usbmuxd 113:113 "usbmuxd user"
+# we can remove the package usbmuxd
+rm -f /usr/lib/sysusers.d/brltty.conf
+rm -f /usr/lib/sysusers.d/usbmuxd.conf
 
 ### CLEANUP
 dnf5 clean all
