@@ -113,10 +113,13 @@ p7zip
 feh
 
 # Virtualisation
-qemu-kvm
-libvirt
+incus
+incus-tools
+#qemu-kvm
+#libvirt
 libvirt-daemon-kvm
 libvirt-daemon-config-network
 virt-install
-virt-viewer
+#virt-viewer
 virt-manager
+

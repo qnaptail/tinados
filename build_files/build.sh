@@ -53,7 +53,7 @@ popd
 
 # Rebuild initramfs
 QUALIFIED_KERNEL="$(dnf5 repoquery --installed --queryformat='%{evr}.%{arch}' "kernel-cachyos")"
-/usr/bin/dracut --no-hostonly --kver "$QUALIFIED_KERNEL" --reproducible --zstd -v --add ostree --add fido2 -f "/usr/lib/modules/$QUALIFIED_KERNEL/initramfs.img"
+/usr/bin/dracut --no-hostonly --kver "$QUALIFIED_KERNEL" --reproducible --zstd -v --add ostree -f "/usr/lib/modules/$QUALIFIED_KERNEL/initramfs.img"
 chmod 0600 /usr/lib/modules/"$QUALIFIED_KERNEL"/initramfs.img
 
 # Lastly if you use SELinux, you need to enable the necessary policy to be able to load kernel modules.
@@ -106,6 +106,8 @@ zram-size = min(ram / 2, 8192)
 EOF
 
 ### Systemd units
+systemctl restart systemd-sysusers
+
 systemctl enable podman.socket
 systemctl enable virtqemud
 systemctl enable systemd-timesyncd
