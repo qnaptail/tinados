@@ -44,14 +44,14 @@ popd
 
 # dnf5 -y remove --no-autoremove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra
 dnf5 -y remove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra
-dnf5 -y install kernel-cachyos kernel-cachyos-devel-matched
+dnf5 -y install kernel-cachyos #kernel-cachyos-devel-matched
+
+dracut -f /boot/initramfs-6.17.9-cachyos1
 
 pushd /usr/lib/kernel/install.d
 mv -f 05-rpmostree.install.bak 05-rpmostree.install
 mv -f 50-dracut.install.bak 50-dracut.install
 popd
-
-dracut --regenerate-all
 
 # Lastly if you use SELinux, you need to enable the necessary policy to be able to load kernel modules.
 setsebool -P domain_kernel_load_modules on
