@@ -108,12 +108,9 @@ tee /usr/lib/systemd/zram-generator.conf <<'EOF'
 zram-size = min(ram / 2, 8192)
 EOF
 
-# Copy configuration files in etc
-systemctl disable NetworkManager-wait-online.service
-
 ## Systemd units
 systemctl enable podman.socket
-systemctl enable virtqemud
+# systemctl enable virtqemud
 systemctl enable systemd-timesyncd
 systemctl enable systemd-resolved.service
 systemctl mask rpm-ostree-countme.timer
