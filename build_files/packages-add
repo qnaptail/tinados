@@ -76,6 +76,7 @@ swayidle
 
 distrobox
 flatpak
+nix
 
 ##########################################################
 # TERMINAL / SHELL
