@@ -95,10 +95,10 @@ systemctl enable greetd
 # TODO: Users management (?)
 
 ## Symlink /nix to /var/nix to make the nix store writable
-mkdir /var/nix
-cp -r /nix /var/nix
+mkdir -p /var/nix
+cp -r /nix/* /var/nix/
 rm -rf /nix
-ln -sr /var/nix /nix
+ln -s /var/nix /nix
 
 ## Enable Zram (ram compression to avoid swaping)
 tee /usr/lib/systemd/zram-generator.conf <<'EOF'
