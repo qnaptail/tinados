@@ -7,8 +7,7 @@ OSNAME="os-template"
 
 
 ## Install NIX
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install ostree \
-  --no-start-daemon \
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-start-daemon ostree \
   --no-confirm \
   --persistence=/var/lib/nix
 # nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
