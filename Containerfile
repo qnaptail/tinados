@@ -6,7 +6,7 @@ COPY rootfs /rootfs
 ## Base Image
 # Fedora base image: quay.io/fedora/fedora-bootc:41
 # CentOS base images: quay.io/centos-bootc/centos-bootc:stream10
-FROM quay.io/fedora/fedora-bootc:latest
+FROM quay.io/fedora/fedora-bootc:latest AS builder
 
 ### [IM]MUTABLE /opt
 ## Some bootable images, like Fedora, have /opt symlinked to /var/opt, in order to
@@ -33,7 +33,7 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
 
 
 #     RUN rm -rf /opt && ln -s /var/opt /opt
-COPY --chown=1000:1000 /nix /var/nix
+COPY --from=builder --chown=1000:1000 /nix /var/nix
 RUN rm -rf /nix && ln -s /var/nix /nix
 
 ## Linting (Verify final image and content correctness)
