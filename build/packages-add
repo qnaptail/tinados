@@ -84,7 +84,7 @@ swayidle
 
 distrobox
 flatpak
-nix
+#nix
 
 ##########################################################
 # TERMINAL / SHELL
