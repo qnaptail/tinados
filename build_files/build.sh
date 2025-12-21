@@ -94,9 +94,9 @@ systemctl enable greetd
 # https://packages.fedoraproject.org/pkgs/nix/nix/
 # TODO: Users management (?)
 
-## Link /nix to /var/nix to make the nix store writable
-mkdir /var/nix
-rmdir /nix
+## Symlink /nix to /var/nix to make the nix store writable
+cp -r /nix /var/nix
+rm -rf /nix
 ln -sr /var/nix /nix
 
 ## Enable Zram (ram compression to avoid swaping)
