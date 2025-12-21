@@ -92,13 +92,12 @@ systemctl enable greetd
 #######################################################################
 # MISC
 #######################################################################
-# TODO: Install nix (https://gist.github.com/queeup/1666bc0a5558464817494037d612f094)
-# https://packages.fedoraproject.org/pkgs/nix/nix/
 # TODO: Users management (?)
 
+# TODO: Install nix (https://gist.github.com/queeup/1666bc0a5558464817494037d612f094)
+# https://packages.fedoraproject.org/pkgs/nix/nix/
 ## Symlink /nix to /var/nix to make the nix store writable (does not work)
 # cp -r /nix /var/ && rm -rf /nix && ln -s /var/nix /nix
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install ostree --no-confirm --persistence=/var/lib/nix --init=none
 
 ## Enable Zram (ram compression to avoid swaping)
 tee /usr/lib/systemd/zram-generator.conf <<'EOF'
