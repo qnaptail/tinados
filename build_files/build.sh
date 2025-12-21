@@ -98,7 +98,7 @@ systemctl enable greetd
 mkdir /var/nix
 cp -r /nix /var/nix
 rm -rf /nix
-ln -sr /var/nix/ /nix/
+ln -sf /var/nix /nix
 
 ## Enable Zram (ram compression to avoid swaping)
 tee /usr/lib/systemd/zram-generator.conf <<'EOF'
