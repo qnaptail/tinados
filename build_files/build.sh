@@ -7,7 +7,7 @@ OSNAME="os-template"
 
 
 ## Install NIX
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install ostree --no-start-daemon --no-confirm --persistence=/var/lib/nix
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install ostree --init none --no-confirm --persistence=/var/lib/nix
 # nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
 # nix-channel --update
 echo "Defaults  secure_path = /nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:$(sudo printenv PATH)" | sudo tee /etc/sudoers.d/nix-sudo-env
