@@ -4,5 +4,6 @@ jobs:
     steps:
       - name: Delete workflow runs
         uses: dmvict/clean-workflow-runs@v1.0.0
-          with:
+        with:
+          token: ${{ secrets.PRIVATE_GITHUB_TOKEN }}
           save_period: 30
