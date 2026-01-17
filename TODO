@@ -1,10 +1,4 @@
 
-
-Create user ?
-
-Do this for all users
-
-
 ## disable waybar on niri startup and enable dms instead
 sed -i 's|spawn-at-startup "waybar"|// spawn-at-startup "waybar"|' /var/home/xu/.config/niri/config.kdl
 
@@ -16,12 +10,10 @@ mkdir ~/.local/share/fonts
 unzip
 fc-cache -fv
 
-
+## user default configs
+flatpak to manage apps
 stow to manage dotfiles
 
 
-# TODO: LATEX env -- in distrobox ??
+## LATEX env (distrobox)
 # texlive
-
-# TODO: audiolibrary : beet
-# distrobox ??

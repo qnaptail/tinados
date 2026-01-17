@@ -93,7 +93,11 @@ systemctl enable greetd
 #######################################################################
 # MISC
 #######################################################################
+
 # TODO: Users management (?)
+## Create default user for VM images
+useradd -m  tinados
+echo "tinados:tinados" | chpasswd
 
 # TODO: Install nix (https://gist.github.com/queeup/1666bc0a5558464817494037d612f094)
 # https://packages.fedoraproject.org/pkgs/nix/nix/
@@ -114,7 +118,7 @@ systemctl enable systemd-resolved.service
 systemctl mask rpm-ostree-countme.timer
 
 # Lenovo thinkpad fan control
-systemctl enable zcfan.service
+# systemctl enable zcfan.service
 
 # Disabling wait-online to decrease the boot time
 systemctl disable NetworkManager-wait-online.service
