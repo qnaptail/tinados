@@ -46,7 +46,7 @@ jobs:
       matrix:
         # disk-type: ["qcow2", "anaconda-iso"]
         # disk-type: ["anaconda-iso"]
-        disk-type: ["qcow2", "anaconda-iso"]
+        disk-type: ["qcow2"]
     permissions:
       contents: read
       packages: read
