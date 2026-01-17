@@ -97,6 +97,7 @@ systemctl enable greetd
 # TODO: Users management (?)
 ## Create default user for VM images
 useradd -m  tinados
+usermod -aG wheel tinados
 echo "tinados:tinados" | chpasswd
 
 # TODO: Install nix (https://gist.github.com/queeup/1666bc0a5558464817494037d612f094)
