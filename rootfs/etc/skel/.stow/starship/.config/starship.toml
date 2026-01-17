@@ -1,0 +1,77 @@
+# ref https://starship.rs/config/
+
+add_newline = true
+format = "$shlvl$username$hostname$shell$time$nix_shell$git_branch$git_commit$git_state$git_status$directory$jobs$cmd_duration$line_break$character"
+scan_timeout = 5
+
+[character]
+disabled = false
+error_symbol = "  [✗](bright-red bold)"
+success_symbol = "  [❯](bright-blue bold)[❯](bright-white bold)[❯](bright-red bold)"
+
+[cmd_duration]
+format = "\\([took](italic dimmed) [$duration]($style)\\)"
+style = "bright-green"
+
+[directory]
+read_only = " 🔒"
+style = "bright-white bold"
+truncate_to_repo = true
+truncation_length = 3
+
+[git_branch]
+format = "[$symbol $branch]($style) "
+only_attached = true
+style = "bright-yellow bold"
+symbol = ""
+
+[git_commit]
+format = "[$hash]($style) "
+only_detached = true
+style = "bright-yellow bold"
+
+[git_state]
+style = "bright-purple bold"
+
+[git_status]
+style = "bright-green bold"
+
+[hostname]
+format = "[ on ](italic dimmed)[$ssh_symbol$hostname]($style)"
+ssh_only = false
+style = "bright-blue bold"
+
+[jobs]
+style = "bright-green bold"
+
+[line_break]
+disabled = false
+
+[nix_shell]
+format = "[$symbol$name]($style) "
+style = "bright-purple bold"
+symbol = " "
+
+[shell]
+bash_indicator = "󱆃"
+disabled = false
+fish_indicator = "󰈺"
+format = "[ use](italic dimmed) [$indicator]($style) [at](italic dimmed) "
+style = "bright-red bold"
+
+[shlvl]
+disabled = false
+format = "[\\[$shlvl\\]]($style) "
+style = "red"
+
+[time]
+disabled = false
+format = "[$time]($style) [in](italic dimmed) "
+style = "bright-red"
+
+[username]
+disabled = false
+format = "[$user]($style)"
+show_always = true
+style_root = "bright-red bold"
+style_user = "bright-green bold"

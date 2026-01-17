@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-LIST_FILE="${1:-flatpak-user.txt}"
+LIST_FILE="${1:-flatpak.list}"
 
 ########################################
 # EXPORT EXISTING STATE (--export-user)

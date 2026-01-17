@@ -1,0 +1,24 @@
+Download themes here:
+https://codeberg.org/dnkl/foot/src/branch/master/themes
+
+Config ref:
+https://codeberg.org/dnkl/foot/src/branch/master/foot.ini
+
+BUG:
+error: foot: /home/xu/.config/foot/themes/dracula:5: [colors].cursor: 282a36 f8f8f2: not valid option
+
+Some themes dont work because of the cursor template :
+
+[colors]
+cursor=282a36 f8f8f2
+foreground=f8f8f2
+background=282a36
+
+Should be :
+
+[cursor]
+color=282a36 f8f8f2
+
+[colors]
+foreground=f8f8f2
+background=282a36
