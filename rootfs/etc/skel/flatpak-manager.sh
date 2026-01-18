@@ -79,10 +79,11 @@ fi
 
 if [[ -n "$TO_REMOVE" ]]; then
     echo "=== Removing apps NOT in declarative list ==="
-    for app in $TO_REMOVE; do
+    while IFS= read -r app; do
+        [[ -z "$app" ]] && continue
         echo "Removing: $app"
         flatpak --user uninstall -y "$app"
-    done
+    done <<< "$TO_REMOVE"
 fi
 
 echo "=== Removing unused dependencies ==="
