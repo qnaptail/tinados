@@ -29,7 +29,7 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     /ctx/build/20-desktop.sh && \
     /ctx/build/30-kernel.sh && \
     /ctx/build/40-services.sh && \
-    /ctx/build/99-system.sh
+    /ctx/build/99-cleanup.sh
 
 ## Linting (Verify final image and content correctness)
 RUN ostree container commit && bootc container lint
