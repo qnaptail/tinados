@@ -15,6 +15,7 @@ FEDORA_MAJOR_VERSION=$(awk -F= '/VERSION_ID/ {print $2}' /etc/os-release)
 BASE_IMAGE_NAME="Fedora bootc $FEDORA_MAJOR_VERSION"
 BASE_IMAGE="quay.io/fedora/fedora-bootc"
 
+mkdir "/usr/share/$IMAGE_NAME"
 IMAGE_INFO="/usr/share/$IMAGE_NAME/image-info.json"
 cat >$IMAGE_INFO <<EOF
 {
@@ -51,6 +52,9 @@ sed -i "s|^EFIDIR=.*|EFIDIR=\"fedora\"|" /usr/sbin/grub2-switch-to-blscfg
 # REMOVE PACKAGES FROM IMAGE
 #######################################################################
 
+# Clean up packages
+dnf5 -y autoremove
+
 packages=(
   PackageKit-command-not-found    # Helper to install package on the command line - Not compatible with bootc
   at    # Utility for time-oriented job control - systemd-timer is better alternative
@@ -65,9 +69,6 @@ dnf5 -y remove "${packages[@]}"
 #######################################################################
 # CLEANUP
 #######################################################################
-
-# Clean up packages
-dnf5 -y autoremove
 
 # Remove unnecessary files
 rm -rf /usr/share/doc
