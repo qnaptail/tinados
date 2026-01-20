@@ -19,7 +19,6 @@ packages=(
   waybar
   swayidle
   swaylock
-  cliphist
   wl-clipboard
   # brightnessctl
   # gammastep
@@ -61,6 +60,7 @@ packages=(
   NetworkManager
   cava
   danksearch
+  cliphist
   matugen
   xdg-utils
   xdriinfo
