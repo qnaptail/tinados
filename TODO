@@ -10,3 +10,8 @@ fc-cache -fv
 # latex env (texlive)
 # gaming env
 
+# Nix install
+
+# systemhomed
+
+# refactor flatpak-manager.sh and stow-manager.sh to tinados

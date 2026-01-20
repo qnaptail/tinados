@@ -9,6 +9,8 @@ set -ouex pipefail
 dnf5 -y install 'dnf5-command(copr)'
 
 mkdir -p /etc/skel/.config/
+mkdir -p /etc/skel/.local/bin/
+cp -ravf /ctx/rootfs/etc/skel/.local/bin/tinados /etc/skel/.local/bin/
 
 ##########################################################
 # HARDWARE & SYSTEM PACKAGES

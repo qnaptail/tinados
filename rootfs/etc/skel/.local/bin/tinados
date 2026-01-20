@@ -1,0 +1,250 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+########################################################
+# CONFIGURATION
+########################################################
+
+LIST_FILE="${1:-flatpak.list}"
+STOW_DIR="$HOME/.dotfiles"
+BACKUP_ROOT="$HOME/.backup-dotfiles"
+mkdir -p "$BACKUP_ROOT"
+
+########################################################
+# STOW HELPER FUNCTIONS
+########################################################
+
+# The paths we want to find are :
+# level 2 files (.dotfiles/app/level1/level2.file)
+#   - .dotfiles/starship/.config/starship.toml
+# level x > 3 directories containing files (.dotfiles/app/level1/level2/level3)
+#   - .dotfiles/starship/.config/fuzzel/
+#   - .dotfiles/fuzzel/.local/var/flatpak/fuzzel/
+# We ONLY want directories containing files, not all subdirectories
+
+app_paths() {
+    local app="$1"
+    {
+        find "$STOW_DIR/$app" -maxdepth 2 -type f -printf '%P\n'
+        find "$STOW_DIR/$app" -mindepth 3 -type f -printf '%P\n' \
+            | sed 's|/[^/]*$||' \
+            | sort -u
+    }
+}
+
+is_stowed() {
+    while IFS= read -r p; do
+        local target="$HOME/$p"
+        [[ -L "$target" ]] && return 0
+    done < <(app_paths "$1")
+    return 1
+}
+
+all_apps() {
+    find "$STOW_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%P\n'
+}
+
+########################################################
+# STOW / UNSTOW
+########################################################
+
+backup_app() {
+    local p
+    while IFS= read -r p; do
+        local target="$HOME/$p"
+        local backup="$BACKUP_ROOT/$p"
+        if [[ -e "$target" && ! -L "$target" ]]; then
+            echo "  → Backup $target to $backup"
+            mkdir -p "$(dirname "$backup")"
+            mv "$target" "$backup"
+        fi
+    done < <(app_paths "$1")
+}
+
+restore_app() {
+    local p
+    while IFS= read -r p; do
+        local target="$HOME/$p"
+        local backup="$BACKUP_ROOT/$p"
+        if [[ -e "$backup" ]]; then
+            echo "  → Restore $backup to $target"
+            mv "$backup" "$target"
+        fi
+    done < <(app_paths "$1")
+}
+
+stow_apps() {
+    for app in "$@"; do
+        echo "• App: $app"
+
+        # Check if the app exists in .dotfiles
+        if [[ ! -d "$STOW_DIR/$app" ]]; then
+            echo "  → No Config available: $STOW_DIR/$app does not exists."
+            continue
+        fi
+
+        # If the app is already stowed, we don't do anything
+        if is_stowed "$app"; then
+            echo "  → Already stowed. Skipping."
+            continue
+        fi
+
+        # Else we backup the current config, then stow the app
+        backup_app "$app"
+        echo "  → stow $app"
+        (cd "$STOW_DIR" && stow "$app")
+    done
+}
+
+unstow_apps() {
+    for app in "$@"; do
+        echo "• App: $app"
+
+        # Check if the app exists in .dotfiles
+        if [[ ! -d "$STOW_DIR/$app" ]]; then
+            echo "  → No Config available: $STOW_DIR/$app does not exists."
+            continue
+        fi
+
+        # We first unstow the app, then we restore config from backup
+        echo "  → unstow $app"
+        (cd "$STOW_DIR" && stow -D "$app")
+        restore_app "$app"
+    done
+}
+
+########################################################
+# FLATPAK
+########################################################
+
+flatpak_export() {
+    flatpak --user list --app --columns=application | sort -u
+    exit 0
+}
+
+flatpak_check_remotes() {
+    local EXISTING_REMOTES
+    local FLATHUB_INFO
+
+    # Get current user remotes
+    mapfile -t EXISTING_REMOTES < <(flatpak --user remotes --columns=name)
+
+    # Disable all remotes except flathub
+    for r in "${EXISTING_REMOTES[@]}"; do
+        if [[ "$r" != "flathub" && "$r" !=  "" ]]; then
+            echo "Disabling remote: $r"
+            flatpak --user remote-modify --disable "$r"
+        fi
+    done
+
+    # Add flathub if missing
+    if ! printf "%s\n" "${EXISTING_REMOTES[@]}" | grep -qx "flathub"; then
+        echo "Adding flathub remote"
+        flatpak --user remote-add --if-not-exists --subset=verified flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+    fi
+
+    # Ensure the flag subset=verified is set on the flathub remote
+    FLATHUB_INFO=$(flatpak --user remotes --columns=name,subset | grep "flathub")
+    if ! echo "$FLATHUB_INFO" | grep -q "verified"; then
+        echo "Applying subset=verified to flathub"
+        flatpak --user remote-modify --subset=verified flathub
+    fi
+
+}
+
+flatpak_fetch() {
+    local DECLARED
+    local INSTALLED
+    local INSTALLED_SORTED
+    local DECLARED_SORTED
+
+    mapfile -t DECLARED < <(grep -vE '^\s*($|#)' "$LIST_FILE" | xargs -L1 echo)
+    mapfile -t INSTALLED < <(flatpak --user list --app --columns=application)
+
+    INSTALLED_SORTED=$(printf "%s\n" "${INSTALLED[@]}" | sort -u)
+    DECLARED_SORTED=$(printf "%s\n" "${DECLARED[@]}" | sort -u)
+
+    TO_REMOVE=$(comm -23 <(echo "$INSTALLED_SORTED") <(echo "$DECLARED_SORTED"))
+    TO_INSTALL=$(comm -13 <(echo "$INSTALLED_SORTED") <(echo "$DECLARED_SORTED"))
+
+    echo "=== Flatpaks to be removed ==="
+    [[ -n "$TO_REMOVE" ]] && echo "$TO_REMOVE"
+    echo "=== Flatpaks to be installed  ==="
+    [[ -n "$TO_INSTALL" ]] && echo "$TO_INSTALL"
+}
+
+flatpak_sync() {
+    # Ensure flathub is the only remote
+    flatpak_check_remotes
+
+    # Prepare lists of flatpaks we need to sync
+    flatpak_fetch
+
+    # Remove undeclared apps
+    if [[ -n "$TO_REMOVE" ]]; then
+        echo "=== Removing apps NOT in declarative list ==="
+        while IFS= read -r app; do
+            [[ -z "$app" ]] && continue
+            echo "Removing: $app"
+            flatpak --user uninstall -y "$app"
+        done <<< "$TO_REMOVE"
+    fi
+
+    echo "=== Removing unused dependencies ==="
+    flatpak --user uninstall -y --unused
+
+    # Install missing apps
+    if [[ -n "$TO_INSTALL" ]]; then
+        echo "=== Installing missing apps from flathub ==="
+        while IFS= read -r app; do
+            [[ -z "$app" ]] && continue
+            echo "Installing: $app"
+            flatpak --user install -y flathub "$app"
+        done <<< "$TO_INSTALL"
+    fi
+
+    echo "=== Check and repair dependencies ==="
+    flatpak --user repair
+
+    echo "Done! User Flatpaks now match the input file"
+    exit 0
+}
+
+########################################################
+# CLI HANDLING
+########################################################
+
+if [[ $# -lt 1  || $1 -eq "--help" ]]; then
+    echo "Usage:"
+    echo "  • $0 {stow|unstow} [apps...]"
+    echo "  • $0 {flatpak} [export|sync]"
+    echo "       - $0 flatpak export > filename"
+    echo "       - $0 flatpak sync < filename"
+    exit 1
+fi
+
+# Separate command (stow/unstow/flatpak) and args
+cmd="$1"
+shift || true
+
+# If no app is given ($@ is now empty), we stow/unstow all the apps in the .dotfiles directory
+case "$cmd" in
+    stow)
+        [[ $# -gt 0 ]] && stow_apps "$@" || stow_apps $(all_apps)
+        ;;
+    unstow)
+        [[ $# -gt 0 ]] && unstow_apps "$@" || unstow_apps $(all_apps)
+        ;;
+    flatpak)
+        [[ $1 -eq "export" ]] && flatpak_export
+        # [[ $1 -eq "sync" ]] && flatpak_sync "$@"
+        [[ $1 -eq "sync" ]] && flatpak_sync
+        echo "Unknown option: $cmd $1"
+        exit 1
+        ;;
+    *)
+        echo "Unknown command: $cmd"
+        exit 1
+        ;;
+esac
