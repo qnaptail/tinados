@@ -6,25 +6,41 @@ set -ouex pipefail
 # SYSTEMD UNITS
 #######################################################################
 
-systemctl enable podman.socket
-systemctl enable systemd-timesyncd
-systemctl enable systemd-resolved.service
-# systemctl enable virtqemud
-# systemctl enable zcfan.service # Thinkpad fan control
+system_services=(
+#     chronyd.service
+    firewalld.service
+    nix.mount
+    nix-setup.service
+    nix-daemon.service
+    systemd-timesyncd.service
+    systemd-resolved.service
+    systemd-homed.service
+#     virtqemud.service
+#     zcfan.service # Thinkpad fan control
+)
 
-systemctl disable NetworkManager-wait-online.service # Disabling wait-online to decrease the boot time
-systemctl disable flatpak-add-fedora-repos.service
+user_services=(
+    podman.socket
+)
 
-systemctl mask rpm-ostree-countme.timer
+mask_services=(
+    logrotate.timer
+    logrotate.service
+    rpm-ostree-countme.timer
+    rpm-ostree-countme.service
+    systemd-remount-fs.service
+    flatpak-add-fedora-repos.service
+    NetworkManager-wait-online.service
+)
+
+systemctl enable "${system_services[@]}"
+systemctl --global enable "${user_services[@]}"
+systemctl mask "${mask_services[@]}"
+
 
 #######################################################################
 # TROUBLESHOOTING
 #######################################################################
-
-## The systemd-remount-fs service fails on boot because the root filesystem on an ostree system is read-only by design.
-# We can mask it to avoid harmless log errors.
-# https://gitlab.com/fedora/ostree/sig/-/issues/72
-systemctl mask systemd-remount-fs.service
 
 ## The systemd-sysusers service is failing to started
 # systemd-sysusers return the following error : /etc/shadow: Group "usbmuxd" already exists.

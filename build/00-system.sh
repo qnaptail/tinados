@@ -43,6 +43,12 @@ packages=(
     wol
 
     ### MULTIMEDIA
+    pipewire
+    pipewire-pulseaudio
+    pipewire-alsa
+    pipewire-jack-audio-connection-kit
+    pipewire-plugin-libcamera
+    wireplumber
     easyeffects
     feh
 
@@ -76,11 +82,13 @@ packages=(
 
 )
 
-dnf5 -y install "${packages[@]}"
+dnf5 -y install "${packages[@]}" --allowerasing
 
 ##########################################################
 # PACKAGES & SOFTWARE MANAGEMENT
 ##########################################################
+
+# TODO: Install NIX
 
 # https://github.com/89luca89/distrobox
 # https://docs.flatpak.org/en/latest/getting-started.html
@@ -88,11 +96,29 @@ dnf5 -y install "${packages[@]}"
 packages=(
     distrobox
     flatpak
+    nix
+    nix-daemon
 )
 dnf5 -y install "${packages[@]}"
 
-# TODO: Install NIX
-#nix
+# tar --create --verbose --preserve-permissions \
+#   --same-owner \
+#   --file /etc/nix-setup.tar \
+#   -C / nix
+
+#   mkdir -p /var/lib/nix; \
+#   tar --extract --verbose --preserve-permissions --same-owner \
+#       --strip-components=1 \
+#       --file /etc/nix-setup.tar \
+#       -C /var/lib/nix; \
+
+mkdir -p /var/lib/
+cp -ravf /nix /var/lib/
+rm -rf /nix
+ln -s /var/nix /nix
+
+## Symlink /nix to /var/nix to make the nix store writable (does not work)
+# cp -r /nix /var/ && rm -rf /nix && ln -s /var/nix /nix
 
 #######################################################################
 # ENABLE ZRAM

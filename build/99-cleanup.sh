@@ -63,6 +63,9 @@ packages=(
   rsyslog   # Enhance logging, but heavy in resources - journalctl is better alternative
   dracut-config-rescue    # Generates rescue initramfs image - Bootc already provides rollback image
   dnf-data  # Remove DNF
+  console-login-helper-messages
+  qemu-user-static*
+  toolbox
 )
 dnf5 -y remove "${packages[@]}"
 
