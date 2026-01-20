@@ -8,7 +8,7 @@ LIST_FILE="${1:-flatpak.list}"
 # EXPORT EXISTING STATE (--export-user)
 ########################################
 
-if [[ "$LIST_FILE" == "--export-user" ]]; then
+if [[ "$LIST_FILE" == "--export" ]]; then
     # Export installed user apps only (one per line)
     flatpak --user list --app --columns=application | sort -u
     exit 0

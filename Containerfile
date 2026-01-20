@@ -24,7 +24,12 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
-    /ctx/build/build.sh
+    /ctx/build/00-system.sh && \
+    /ctx/build/10-shell.sh && \
+    /ctx/build/20-niri_dms.sh && \
+    /ctx/build/30-kernel.sh && \
+    /ctx/build/40-services.sh && \
+    /ctx/build/99-system.sh
 
 ## Linting (Verify final image and content correctness)
 RUN ostree container commit && bootc container lint
