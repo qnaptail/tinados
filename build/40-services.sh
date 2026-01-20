@@ -15,7 +15,7 @@ system_services=(
 #     chronyd.service
     firewalld.service
 #     nix.mount
-    nix-setup.service
+#     nix-setup.service
     nix-daemon.service
     systemd-timesyncd.service
     systemd-resolved.service
