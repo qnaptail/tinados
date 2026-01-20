@@ -46,6 +46,6 @@ dnf5 -y copr disable lihaohong/yazi
 dnf5 -y copr disable varlad/zellij
 
 # Config
-cp -avf /ctx/rootfs/etc/skel/.bashrc /etc/skel/.config/.bashrc
-cp -avf /ctx/rootfs/etc/skel/.config/fish /etc/skel/.config/fish
-cp -avf /ctx/rootfs/etc/skel/.config/starship.toml /etc/skel/.config/starship.toml
+cp -ravf /ctx/rootfs/etc/skel/.bashrc /etc/skel/.config/.bashrc
+cp -ravf /ctx/rootfs/etc/skel/.config/fish /etc/skel/.config/fish
+cp -ravf /ctx/rootfs/etc/skel/.config/starship.toml /etc/skel/.config/starship.toml

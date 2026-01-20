@@ -26,7 +26,7 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/build/00-system.sh && \
     /ctx/build/10-shell.sh && \
-    /ctx/build/20-niri_dms.sh && \
+    /ctx/build/20-desktop.sh && \
     /ctx/build/30-kernel.sh && \
     /ctx/build/40-services.sh && \
     /ctx/build/99-system.sh
