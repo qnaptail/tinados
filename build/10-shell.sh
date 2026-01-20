@@ -28,7 +28,7 @@ packages=(
     vim-default-editor
     stow
     just
-    jq
+    #jq
     yazi
     git
     gitui
