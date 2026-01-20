@@ -3,10 +3,13 @@
 set -ouex pipefail
 
 #######################################################################
-# ENABLE THIRD PARTY REPOS
+# PREPARE
 #######################################################################
 
+# Enable third party repos
 dnf5 -y install 'dnf5-command(copr)'
+
+cp -ravf "/ctx/rootfs/etc/skel/.bashrc" /etc/skel/.bashrc
 
 ##########################################################
 # HARDWARE & SYSTEM PACKAGES
