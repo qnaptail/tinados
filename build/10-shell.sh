@@ -28,7 +28,7 @@ packages=(
     vim-default-editor
     stow
     just
-    #jq
+    jq
     yazi
     git
     gitui
@@ -40,7 +40,7 @@ packages=(
     #vim-ansible
 )
 
-dnf5 -y install "${packages[@]}"
+dnf5 -y install "${packages[@]}" --allowerasing
 dnf5 -y copr disable atim/starship
 dnf5 -y copr disable lihaohong/yazi
 dnf5 -y copr disable varlad/zellij
