@@ -46,7 +46,7 @@ systemctl enable --global gnome-keyring-daemon.service
 cp -ravf /ctx/rootfs/etc/skel/.config/niri /etc/skel/.config/
 cp -ravf /ctx/rootfs/etc/skel/.config/fuzzel /etc/skel/.config/
 cp -ravf /ctx/rootfs/usr/share/xdg-desktop-portal /usr/share/
-
+cp -ravf /ctx/rootfs/etc/skel/.wallpapers /etc/skel/
 
 #######################################################################
 # DANK MATERIAL SHELL

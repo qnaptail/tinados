@@ -101,6 +101,8 @@ packages=(
 )
 dnf5 -y install "${packages[@]}"
 
+cp -ravf /ctx/rootfs/etc/skel/flatpak.list /etc/skel/
+
 # tar --create --verbose --preserve-permissions \
 #   --same-owner \
 #   --file /etc/nix-setup.tar \
@@ -115,10 +117,12 @@ dnf5 -y install "${packages[@]}"
 mkdir -p /var/lib/
 cp -ravf /nix /var/lib/
 rm -rf /nix
-ln -s /var/nix /nix
+ln -s /var/lib/nix /nix
 
 ## Symlink /nix to /var/nix to make the nix store writable (does not work)
 # cp -r /nix /var/ && rm -rf /nix && ln -s /var/nix /nix
+
+
 
 #######################################################################
 # ENABLE ZRAM
