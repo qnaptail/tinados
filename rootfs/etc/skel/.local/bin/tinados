@@ -187,7 +187,7 @@ flatpak_sync() {
         while IFS= read -r app; do
             [[ -z "$app" ]] && continue
             echo "Removing: $app"
-            flatpak --user uninstall -y "$app"
+            flatpak --user uninstall -y "$app" </dev/null
         done <<< "$TO_REMOVE"
     fi
 
@@ -200,7 +200,7 @@ flatpak_sync() {
         while IFS= read -r app; do
             [[ -z "$app" ]] && continue
             echo "Installing: $app"
-            flatpak --user install -y flathub "$app"
+            flatpak --user install -y flathub "$app" </dev/null
         done <<< "$TO_INSTALL"
     fi
 
@@ -215,7 +215,7 @@ flatpak_sync() {
 # CLI HANDLING
 ########################################################
 
-if [[ $# -lt 1  || $1 -eq "--help" ]]; then
+if [[ $# -lt 1  || $1 == "--help" ]]; then
     echo "Usage:"
     echo "  • $0 {stow|unstow} [apps...]"
     echo "  • $0 {flatpak} [export|sync]"
@@ -237,9 +237,9 @@ case "$cmd" in
         [[ $# -gt 0 ]] && unstow_apps "$@" || unstow_apps $(all_apps)
         ;;
     flatpak)
-        [[ $1 -eq "export" ]] && flatpak_export
+        [[ $1 == "export" ]] && flatpak_export
         # [[ $1 -eq "sync" ]] && flatpak_sync "$@"
-        [[ $1 -eq "sync" ]] && flatpak_sync
+        [[ $1 == "sync" ]] && flatpak_sync
         echo "Unknown option: $cmd $1"
         exit 1
         ;;

@@ -48,4 +48,7 @@ dnf5 -y copr disable varlad/zellij
 # Config
 cp -ravf /ctx/rootfs/etc/skel/.bashrc /etc/skel/
 cp -ravf /ctx/rootfs/etc/skel/.config/fish /etc/skel/.config/
+cp -ravf /ctx/rootfs/etc/skel/.config/foot /etc/skel/.config/
 cp -ravf /ctx/rootfs/etc/skel/.config/starship.toml /etc/skel/.config/
+mkdir -p /etc/skel/.local/share/
+cp -ravf /ctx/rootfs/etc/skel/.local/share/fonts /etc/skel/.local/share/
