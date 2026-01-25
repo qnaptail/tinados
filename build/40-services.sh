@@ -8,8 +8,8 @@ set -ouex pipefail
 
 mkdir -p /etc/skel/etc/systemd/system
 mkdir -p /etc/skel/etc/systemd/user
-cp -ravf /ctx/rootfs/etc/systemd/system/* /etc/skel/etc/systemd/system/
-cp -ravf /ctx/rootfs/etc/systemd/user/* /etc/skel/etc/systemd/user/
+cp -ravf /ctx/rootfs/etc/systemd/system/* /etc/systemd/system/
+cp -ravf /ctx/rootfs/etc/systemd/user/* /etc/systemd/user/
 
 system_services=(
 #     chronyd.service
