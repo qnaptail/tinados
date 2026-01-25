@@ -6,7 +6,6 @@ set -euo pipefail
 # CONFIGURATION
 ########################################################
 
-LIST_FILE="${1:-flatpak.list}"
 STOW_DIR="$HOME/.dotfiles"
 BACKUP_ROOT="$HOME/.backup-dotfiles"
 mkdir -p "$BACKUP_ROOT"
@@ -17,11 +16,8 @@ mkdir -p "$BACKUP_ROOT"
 
 # The paths we want to find are :
 # level 2 files (.dotfiles/app/level1/level2.file)
-#   - .dotfiles/starship/.config/starship.toml
-# level x > 3 directories containing files (.dotfiles/app/level1/level2/level3)
-#   - .dotfiles/starship/.config/fuzzel/
-#   - .dotfiles/fuzzel/.local/var/flatpak/fuzzel/
-# We ONLY want directories containing files, not all subdirectories
+# level x > 3 directories containing files (.dotfiles/app/level1/level2/level3/files)
+
 
 app_paths() {
     local app="$1"
@@ -153,11 +149,18 @@ flatpak_check_remotes() {
 
 }
 
-flatpak_fetch() {
+flatpak_fetch_lists() {
     local DECLARED
     local INSTALLED
     local INSTALLED_SORTED
     local DECLARED_SORTED
+
+    LIST_FILE="${2:-flatpak.list}"
+
+    if [[ ! -f "$LIST_FILE" ]]; then
+        echo "Error: flatpak list file '$LIST_FILE' not found."
+        exit 1
+    fi
 
     mapfile -t DECLARED < <(grep -vE '^\s*($|#)' "$LIST_FILE" | xargs -L1 echo)
     mapfile -t INSTALLED < <(flatpak --user list --app --columns=application)
@@ -169,9 +172,14 @@ flatpak_fetch() {
     TO_INSTALL=$(comm -13 <(echo "$INSTALLED_SORTED") <(echo "$DECLARED_SORTED"))
 
     echo "=== Flatpaks to be removed ==="
-    [[ -n "$TO_REMOVE" ]] && echo "$TO_REMOVE"
+    if [[ -n "$TO_REMOVE" ]]; then
+        echo "$TO_REMOVE"
+    fi
+
     echo "=== Flatpaks to be installed  ==="
-    [[ -n "$TO_INSTALL" ]] && echo "$TO_INSTALL"
+    [[ -n "$TO_INSTALL" ]]; then
+        echo "$TO_INSTALL"
+    fi
 }
 
 flatpak_sync() {
@@ -179,7 +187,7 @@ flatpak_sync() {
     flatpak_check_remotes
 
     # Prepare lists of flatpaks we need to sync
-    flatpak_fetch
+    flatpak_fetch_lists "$@"
 
     # Remove undeclared apps
     if [[ -n "$TO_REMOVE" ]]; then
@@ -208,6 +216,9 @@ flatpak_sync() {
     flatpak --user repair
 
     echo "Done! User Flatpaks now match the input file"
+
+    #TODO: Reload dms!
+
     exit 0
 }
 
@@ -218,9 +229,8 @@ flatpak_sync() {
 if [[ $# -lt 1  || $1 == "--help" ]]; then
     echo "Usage:"
     echo "  • $0 {stow|unstow} [apps...]"
-    echo "  • $0 {flatpak} [export|sync]"
-    echo "       - $0 flatpak export > filename"
-    echo "       - $0 flatpak sync < filename"
+    echo "  • $0 flatpak export"
+    echo "  • $0 flatpak sync *filename*"
     exit 1
 fi
 
@@ -238,8 +248,7 @@ case "$cmd" in
         ;;
     flatpak)
         [[ $1 == "export" ]] && flatpak_export
-        # [[ $1 -eq "sync" ]] && flatpak_sync "$@"
-        [[ $1 == "sync" ]] && flatpak_sync
+        [[ $1 == "sync" ]] && flatpak_sync "$@"
         echo "Unknown option: $cmd $1"
         exit 1
         ;;

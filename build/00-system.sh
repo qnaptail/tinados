@@ -122,8 +122,6 @@ ln -s /var/lib/nix /nix
 ## Symlink /nix to /var/nix to make the nix store writable (does not work)
 # cp -r /nix /var/ && rm -rf /nix && ln -s /var/nix /nix
 
-
-
 #######################################################################
 # ENABLE ZRAM
 #######################################################################
