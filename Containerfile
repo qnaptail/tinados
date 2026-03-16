@@ -6,7 +6,7 @@ COPY rootfs /rootfs
 ## Base Image
 # Fedora base image: quay.io/fedora/fedora-bootc:41
 # CentOS base images: quay.io/centos-bootc/centos-bootc:stream10
-FROM quay.io/fedora/fedora-bootc:latest
+FROM quay.io/fedora/fedora-bootc:44
 
 ### [IM]MUTABLE /opt
 ## Some bootable images, like Fedora, have /opt symlinked to /var/opt, in order to
@@ -24,12 +24,7 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
-    /ctx/build/00-system.sh && \
-    /ctx/build/10-shell.sh && \
-    /ctx/build/20-desktop.sh && \
-    /ctx/build/30-kernel.sh && \
-    /ctx/build/40-services.sh && \
-    /ctx/build/99-cleanup.sh
+    /ctx/build/kde.sh
 
 ## Linting (Verify final image and content correctness)
 RUN ostree container commit && bootc container lint
