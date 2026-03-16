@@ -75,7 +75,11 @@ jobs:
           remove-codeql: true
 
       - name: Checkout
+<<<<<<< HEAD
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+=======
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v5
+>>>>>>> fbcd7bd3e5717cd62a1a876b12d9d741216cd77a
 
       - name: Build disk images
         id: build
@@ -90,7 +94,11 @@ jobs:
 
       - name: Upload disk images and Checksum to Job Artifacts
         if: inputs.upload-to-s3 != true && github.event_name != 'pull_request'
+<<<<<<< HEAD
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+=======
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v4
+>>>>>>> fbcd7bd3e5717cd62a1a876b12d9d741216cd77a
         with:
           path: ${{ steps.build.outputs.output-directory }}
           if-no-files-found: error
