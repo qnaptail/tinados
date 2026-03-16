@@ -227,6 +227,8 @@ echo "tinados:tinados" | chpasswd
 # SYSTEMD UNITS
 #######################################################################
 
+systemctl set-default graphical.target
+
 system_services=(
 #     chronyd.service
     firewalld.service
