@@ -22,6 +22,7 @@ coprs=(
   lihaohong/yazi
   varlad/zellij
 )
+dnf5 -y install 'dnf5-command(copr)'
 dnf5 -y copr enable "${coprs[@]}"
 
 # Install listed packages
