@@ -17,13 +17,10 @@ cp /ctx/build/kde/packages-remove /usr/local/share/$OSNAME/packages-remove
 chmod  0644 /usr/local/share/$OSNAME/*
 
 # Third parties repositories
-coprs=(
-  atim/starship
-  lihaohong/yazi
-  varlad/zellij
-)
 dnf5 -y install 'dnf5-command(copr)'
-dnf5 -y copr enable "${coprs[@]}"
+dnf5 -y copr enable atim/starship
+dnf5 -y copr enable lihaohong/yazi
+dnf5 -y copr enable varlad/zellij
 
 # Install listed packages
 grep -vE '^#' /usr/local/share/$OSNAME/packages-add | xargs dnf5 -y install --allowerasing
@@ -33,7 +30,9 @@ grep -vE '^#' /usr/local/share/$OSNAME/packages-remove | xargs dnf5 -y remove
 
 # Cleanup
 dnf5 -y autoremove
-dnf5 -y copr disable "${coprs[@]}"
+dnf5 -y copr disable atim/starship
+dnf5 -y copr disable lihaohong/yazi
+dnf5 -y copr disable varlad/zellij
 
 
 #######################################################################
