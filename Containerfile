@@ -24,7 +24,11 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
-    /ctx/build/kde.sh
+    /ctx/build/kde/build.sh && \
+    /ctx/build/common/0-kernel.sh && \
+    /ctx/build/common/1-misc.sh && \
+    /ctx/build/common/2-infos.sh && \
+    /ctx/build/common/3-cleanup.sh
 
 ## Linting (Verify final image and content correctness)
 RUN ostree container commit && bootc container lint
