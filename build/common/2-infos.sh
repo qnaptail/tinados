@@ -11,7 +11,7 @@ FEDORA_MAJOR_VERSION=$(awk -F= '/VERSION_ID/ {print $2}' /etc/os-release)
 BASE_IMAGE_NAME="Fedora bootc $FEDORA_MAJOR_VERSION"
 BASE_IMAGE="quay.io/fedora/fedora-bootc"
 
-mkdir "/usr/share/$IMAGE_NAME"
+mkdir -p "/usr/share/$IMAGE_NAME"
 IMAGE_INFO="/usr/share/$IMAGE_NAME/image-info.json"
 cat >$IMAGE_INFO <<EOF
 {
