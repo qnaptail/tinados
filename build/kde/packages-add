@@ -2,71 +2,64 @@
 # List of packages to install on top of base image
 ##########################################################
 
+##########################################################
+# DESKTOP ENVIRONMENT (KDE PLASMA)
+##########################################################
+
+@kde-desktop-environment
+kate
 
 ##########################################################
 # HARDWARE / SYSTEM
 ##########################################################
-#
-#@hardware-support
-#
-#### INFOS
-#pciutils
-#usbutils
-#vulkan-tools
-#libva-utils
-#lm_sensors
-#
-#### DISK
-#ntfs-3g
-#nfs-utils
-#
-#### NETWORK
-#NetworkManager
-#NetworkManager-wifi
-#nmap
-#bind-utils
-#firewalld
-#wireguard-tools
-#tailscale
-#wget
-#wol
-#
-#### MULTIMEDIA
-#pipewire
-#pipewire-pulseaudio
-#pipewire-alsa
-#pipewire-jack-audio-connection-kit
-#pipewire-plugin-libcamera
-#wireplumber
-#easyeffects
-#feh
-#### POWER MANAGEMENT
-#power-profiles-daemon
-#powertop
-##tlp
-#zcfan
-#
-#### FINGERPRINT SENSOR
-#fprintd
-#fprintd-pam
-#
-#### LOCALE & FONTS
-#glibc-all-langpacks
-#default-fonts-core-emoji
-#google-noto-color-emoji-fonts
-#google-noto-emoji-fonts
-#fira-code-fonts
-#fontawesome-fonts-all
-#jetbrains-mono-fonts
 
+@hardware-support
 
-##########################################################
-# DESKTOP ENVIRONMENT
-# https://github.com/YaLTeR/niri/wiki/Getting-Started
-# https://github.com/AvengeMedia/DankMaterialShell
-##########################################################
+### INFOS
+pciutils
+usbutils
+vulkan-tools
+libva-utils
+lm_sensors
 
-@kde-desktop-environment
+### DISK
+ntfs-3g
+nfs-utils
+
+### NETWORK
+NetworkManager
+NetworkManager-wifi
+nmap
+bind-utils
+firewalld
+wireguard-tools
+tailscale
+wget
+wol
+
+### MULTIMEDIA
+pipewire
+pipewire-pulseaudio
+pipewire-alsa
+pipewire-jack-audio-connection-kit
+pipewire-plugin-libcamera
+wireplumber
+easyeffects
+feh
+
+### POWER MANAGEMENT
+power-profiles-daemon
+powertop
+#tlp
+zcfan
+
+### FINGERPRINT SENSOR
+fprintd
+fprintd-pam
+
+### LOCALE & FONTS
+glibc-all-langpacks
+fira-code-fonts
 
 ##########################################################
 # PACKAGE / SOFTWARE MANAGEMENT
@@ -83,11 +76,13 @@ nix-daemon
 # TERMINAL / SHELL
 ##########################################################
 
-#alacritty
+### TERMINAL / MULTIPLEXER
+alacritty
 foot
 zellij
 tmux
 
+### SHELL UTILS
 fish
 starship
 zoxide
@@ -98,6 +93,7 @@ fd-find
 tldr
 fastfetch
 
+### UTILS
 vim-default-editor
 stow
 just
@@ -108,18 +104,22 @@ gitui
 gh
 p7zip
 
-#opentofu
-#ansible
-#vim-ansible
+##########################################################
+# DEVOPS
+##########################################################
+
+opentofu
+ansible
+vim-ansible
 
 ##########################################################
 # VIRTUALISATION
 ##########################################################
 
-#incus
-#incus-tools
-#libvirt-daemon-kvm
-#libvirt-daemon-config-network
-#virt-install
-#virt-viewer
-#virt-manager
+incus
+incus-tools
+libvirt-daemon-kvm
+libvirt-daemon-config-network
+virt-install
+virt-viewer
+virt-manager

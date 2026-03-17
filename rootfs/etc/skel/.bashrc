@@ -33,14 +33,14 @@ alias gd='git diff'
 alias gp='git push'
 alias gs='git status'
 
-alias eza='eza --icons auto'
+# alias eza='eza --icons auto'
 alias l='ls -l'
-alias la='eza -a'
-alias ll='eza -l'
-alias lla='eza -la'
-alias ls=eza
-alias lst='eza --sort newest -l'
-alias lt='eza --tree'
+# alias la='eza -a'
+# alias ll='eza -l'
+# alias lla='eza -la'
+# alias ls=eza
+# alias lst='eza --sort newest -l'
+# alias lt='eza --tree'
 
 if [[ :$SHELLOPTS: =~ :(vi|emacs): ]]; then
   eval "$(fzf --bash)"
