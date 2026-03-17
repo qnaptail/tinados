@@ -177,7 +177,7 @@ flatpak_fetch_lists() {
     fi
 
     echo "=== Flatpaks to be installed  ==="
-    [[ -n "$TO_INSTALL" ]]; then
+   if [[ -n "$TO_INSTALL" ]]; then
         echo "$TO_INSTALL"
     fi
 }
