@@ -16,6 +16,11 @@ cp /ctx/build/kde/packages-add /usr/local/share/$OSNAME/packages-add
 cp /ctx/build/kde/packages-remove /usr/local/share/$OSNAME/packages-remove
 chmod  0644 /usr/local/share/$OSNAME/*
 
+# Create /nix store bind mount
+mkdir -p /var/nix
+mkdir -p /nix
+mount --bind /var/nix /nix
+
 # Install listed packages
 grep -vE '^#' /usr/local/share/$OSNAME/packages-add | xargs dnf5 -y install --allowerasing
 
@@ -35,7 +40,8 @@ systemctl set-default graphical.target
 system_services=(
 #     chronyd.service
     firewalld.service
-# nix-daemon.service
+    nix.mount
+    nix-daemon.service
     systemd-timesyncd.service
     systemd-resolved.service
     systemd-homed.service

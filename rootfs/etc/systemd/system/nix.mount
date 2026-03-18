@@ -1,0 +1,13 @@
+[Unit]
+Description=Nix Store
+After=ostree-remount.service
+BindsTo=var.mount
+
+[Mount]
+What=/var/nix
+Where=/nix
+Type=none
+Options=bind
+
+[Install]
+WantedBy=local-fs.target

@@ -3,12 +3,12 @@
 set -ouex pipefail
 
 #######################################################################
-# MAKE /NIX WRITABLE
+# CREATE NIX STORE BIND MOUNT
 #######################################################################
 
-# cp -ravf /nix /var/
-# rm -rf /nix
-# ln -s /var/nix /nix
+# mkdir -p /var/nix
+# mkdir -p /nix
+# mount --bind /var/nix /nix
 
 #######################################################################
 # ENABLE ZRAM
