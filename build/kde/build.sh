@@ -19,7 +19,7 @@ chmod  0644 /usr/local/share/$OSNAME/*
 # Create /nix store bind mount
 mkdir -p /var/nix
 mkdir -p /nix
-mount --bind /var/nix /nix
+# mount --bind /var/nix /nix
 
 # Install listed packages
 grep -vE '^#' /usr/local/share/$OSNAME/packages-add | xargs dnf5 -y install --allowerasing
