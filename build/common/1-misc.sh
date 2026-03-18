@@ -28,10 +28,3 @@ EOF
 # usermod -aG wheel tinados
 # echo "tinados:tinados" | chpasswd
 
-#######################################################################
-# CONFIGURATION
-#######################################################################
-
-## Copy all config files from rootfs directory to the system
-cp -avf "/ctx/rootfs"/. /
-
