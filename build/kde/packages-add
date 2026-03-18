@@ -7,7 +7,8 @@
 ##########################################################
 
 @kde-desktop-environment
-kate
+#kate
+#@kde-desktop
 
 ##########################################################
 # HARDWARE / SYSTEM
@@ -59,7 +60,7 @@ fprintd-pam
 
 ### LOCALE & FONTS
 glibc-all-langpacks
-fira-code-fonts
+#fira-code-fonts
 
 ##########################################################
 # PACKAGE / SOFTWARE MANAGEMENT
@@ -77,40 +78,40 @@ nix-daemon
 ##########################################################
 
 ### TERMINAL / MULTIPLEXER
-alacritty
-foot
-zellij
-tmux
-
-### SHELL UTILS
-fish
-starship
-zoxide
-fzf
-bat
-ripgrep
-fd-find
-tldr
-fastfetch
-
-### UTILS
-vim-default-editor
-stow
-just
-jq
-yazi
-git
-gitui
-gh
-p7zip
+#alacritty
+#foot
+#zellij
+#tmux
+#
+#### SHELL UTILS
+#fish
+#starship
+#zoxide
+#fzf
+#bat
+#ripgrep
+#fd-find
+#tldr
+#fastfetch
+#
+#### UTILS
+#vim-default-editor
+#stow
+#just
+#jq
+#yazi
+#git
+#gitui
+#gh
+#p7zip
 
 ##########################################################
 # DEVOPS
 ##########################################################
 
-opentofu
-ansible
-vim-ansible
+#opentofu
+#ansible
+#vim-ansible
 
 ##########################################################
 # VIRTUALISATION

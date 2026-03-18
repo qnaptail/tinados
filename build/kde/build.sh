@@ -75,11 +75,3 @@ systemctl mask "${mask_services[@]}"
 # TROUBLESHOOTING
 #######################################################################
 
-## The systemd-sysusers service is failing to started
-# systemd-sysusers return the following error : /etc/shadow: Group "usbmuxd" already exists.
-# the sysusers config is defined in the /usr/lib/sysusers.d/usbmuxd.conf
-#       g usbmuxd 113
-#       u usbmuxd 113:113 "usbmuxd user"
-# we can remove the package usbmuxd
-# rm -f /usr/lib/sysusers.d/brltty.conf
-# rm -f /usr/lib/sysusers.d/usbmuxd.conf

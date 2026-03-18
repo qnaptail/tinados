@@ -223,12 +223,82 @@ flatpak_sync() {
 }
 
 ########################################################
+# STOW / UNSTOW
+########################################################
+
+backup_app() {
+    local p
+    while IFS= read -r p; do
+        local target="$HOME/$p"
+        local backup="$BACKUP_ROOT/$p"
+        if [[ -e "$target" && ! -L "$target" ]]; then
+            echo "  → Backup $target to $backup"
+            mkdir -p "$(dirname "$backup")"
+            mv "$target" "$backup"
+        fi
+    done < <(app_paths "$1")
+}
+
+restore_app() {
+    local p
+    while IFS= read -r p; do
+        local target="$HOME/$p"
+        local backup="$BACKUP_ROOT/$p"
+        if [[ -e "$backup" ]]; then
+            echo "  → Restore $backup to $target"
+            mv "$backup" "$target"
+        fi
+    done < <(app_paths "$1")
+}
+
+stow_apps() {
+    for app in "$@"; do
+        echo "• App: $app"
+
+        # Check if the app exists in .dotfiles
+        if [[ ! -d "$STOW_DIR/$app" ]]; then
+            echo "  → No Config available: $STOW_DIR/$app does not exists."
+            continue
+        fi
+
+        # If the app is already stowed, we don't do anything
+        if is_stowed "$app"; then
+            echo "  → Already stowed. Skipping."
+            continue
+        fi
+
+        # Else we backup the current config, then stow the app
+        backup_app "$app"
+        echo "  → stow $app"
+        (cd "$STOW_DIR" && stow "$app")
+    done
+}
+
+unstow_apps() {
+    for app in "$@"; do
+        echo "• App: $app"
+
+        # Check if the app exists in .dotfiles
+        if [[ ! -d "$STOW_DIR/$app" ]]; then
+            echo "  → No Config available: $STOW_DIR/$app does not exists."
+            continue
+        fi
+
+        # We first unstow the app, then we restore config from backup
+        echo "  → unstow $app"
+        (cd "$STOW_DIR" && stow -D "$app")
+        restore_app "$app"
+    done
+}
+
+########################################################
 # CLI HANDLING
 ########################################################
 
 if [[ $# -lt 1  || $1 == "--help" ]]; then
     echo "Usage:"
-    echo "  • $0 {stow|unstow} [apps...]"
+    # echo "  • $0 {stow|unstow} [apps...]"
+    echo "  • $0 home {init|update|switch}"
     echo "  • $0 flatpak export"
     echo "  • $0 flatpak sync *filename*"
     exit 1
@@ -240,12 +310,19 @@ shift || true
 
 # If no app is given ($@ is now empty), we stow/unstow all the apps in the .dotfiles directory
 case "$cmd" in
-    stow)
-        [[ $# -gt 0 ]] && stow_apps "$@" || stow_apps $(all_apps)
-        ;;
-    unstow)
-        [[ $# -gt 0 ]] && unstow_apps "$@" || unstow_apps $(all_apps)
-        ;;
+    home)
+        [[ $1 == "init" ]] && nix run home-manager/master -- init --switch
+        [[ $1 == "update" ]] && (cd "~/.config/home-manager" && nix flake update) 
+        [[ $1 == "switch" ]] && home-manager switch --flake ~/.config/home-manager
+        echo "Unknown option: $cmd $1"
+        exit 1
+        ;;   
+    # stow)
+    #     [[ $# -gt 0 ]] && stow_apps "$@" || stow_apps $(all_apps)
+    #     ;;
+    # unstow)
+    #     [[ $# -gt 0 ]] && unstow_apps "$@" || unstow_apps $(all_apps)
+    #     ;;
     flatpak)
         [[ $1 == "export" ]] && flatpak_export
         [[ $1 == "sync" ]] && flatpak_sync "$@"
