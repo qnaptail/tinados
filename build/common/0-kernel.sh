@@ -17,7 +17,7 @@ chmod +x  05-rpmostree.install 50-dracut.install
 popd
 
 # Remove default kernel, install kernel-cachyos
-dnf5 install 'dnf5-command(copr)'
+dnf5 -y install 'dnf5-command(copr)'
 dnf5 -y copr enable bieszczaders/kernel-cachyos
 dnf5 -y remove kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra
 dnf5 -y install kernel-cachyos kernel-cachyos-devel-matched
