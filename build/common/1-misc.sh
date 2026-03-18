@@ -6,9 +6,9 @@ set -ouex pipefail
 # MAKE /NIX WRITABLE
 #######################################################################
 
-cp -ravf /nix /var/
-rm -rf /nix
-ln -s /var/nix /nix
+# cp -ravf /nix /var/
+# rm -rf /nix
+# ln -s /var/nix /nix
 
 #######################################################################
 # ENABLE ZRAM

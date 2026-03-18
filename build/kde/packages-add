@@ -70,9 +70,9 @@ glibc-all-langpacks
 
 distrobox
 flatpak
-#nix-core
-nix
-nix-daemon
+nix-core
+#nix
+#nix-daemon
 
 ##########################################################
 # TERMINAL / SHELL
