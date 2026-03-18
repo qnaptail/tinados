@@ -1,7 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
-
 
 ###############################################
 # TERMINAL
@@ -70,44 +69,45 @@
   # https://codeberg.org/dnkl/foot/src/branch/master/foot.ini
   programs.foot = {
     enable = true;
+    settings = {
+      main = {
+        shell = "fish";
+        font = "FiraCodeNerdFontMono:size=14";
+        dpi-aware = "yes";
+        pad = "5x5";
+        gamma-correct-blending = "no";
+      };
 
-    main = {
-      shell = "fish";
-      font = "FiraCodeNerdFontMono:size=14";
-      dpi-aware = "yes";
-      pad = "5x5";
-      gamma-correct-blending = "no";
-    };
+      mouse = {
+        hide-when-typing = "yes";
+      };
 
-    mouse = {
-      hide-when-typing = "yes";
-    };
+      tweak = {
+        font-monospace-warn = "no";
+      };
 
-    tweak = {
-      font-monospace-warn = "no";
-    };
-
-    colors-dark = {
-      alpha = "0.95";
-      cursor = "181818 56d8c9";
-      background = "181818";
-      foreground = "d8d8d8";
-      regular0 = "181818";
-      regular1 = "ac4242";
-      regular2 = "90a959";
-      regular3 = "f4bf75";
-      regular4 = "6a9fb5";
-      regular5 = "aa759f";
-      regular6 = "75b5aa";
-      regular7 = "d8d8d8";
-      bright0 = "6b6b6b";
-      bright1 = "c55555";
-      bright2 = "aac474";
-      bright3 = "feca88";
-      bright4 = "82b8c8";
-      bright5 = "c28cb8";
-      bright6 = "93d3c3";
-      bright7 = "f8f8f8";
+      colors-dark = {
+        alpha = "0.95";
+        cursor = "181818 56d8c9";
+        background = "181818";
+        foreground = "d8d8d8";
+        regular0 = "181818";
+        regular1 = "ac4242";
+        regular2 = "90a959";
+        regular3 = "f4bf75";
+        regular4 = "6a9fb5";
+        regular5 = "aa759f";
+        regular6 = "75b5aa";
+        regular7 = "d8d8d8";
+        bright0 = "6b6b6b";
+        bright1 = "c55555";
+        bright2 = "aac474";
+        bright3 = "feca88";
+        bright4 = "82b8c8";
+        bright5 = "c28cb8";
+        bright6 = "93d3c3";
+        bright7 = "f8f8f8";
+      };
     };
   };
 
@@ -341,8 +341,9 @@
     # Modern ls
     eza = {
       enable = true;
-      enableAliases = true;
-      icons = true; # make sure nerd fonts are installed on the system
+      enableFishIntegration = true;
+      enableBashIntegration = true;
+      icons = "auto"; # make sure nerd fonts are installed on the system
     };
 
     # Modern cat
@@ -373,30 +374,21 @@
       enableBashIntegration	= true;
       enableFishIntegration = true;
       enableNushellIntegration = false;
+      shellWrapperName = "y";
     };
   
   };
 
 
 ###############################################
-# FONTS
-###############################################
-
-  fonts.fontconfig.enable = true;
-  fonts.fontDir.enable = true;
-
-#   home.packages = with pkgs; [
-  fonts.packages = with pkgs; [
-    nerd-fonts.fira-code
-    font-awesome
-  ];
-
-
-###############################################
 # SHELL APPS
 ###############################################
+  
+  fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
+    nerd-fonts.fira-code
+    font-awesome
     fd
     just
     curl
