@@ -35,7 +35,7 @@ systemctl set-default graphical.target
 system_services=(
 #     chronyd.service
     firewalld.service
-    nix-daemon.service
+# nix-daemon.service
     systemd-timesyncd.service
     systemd-resolved.service
     systemd-homed.service
