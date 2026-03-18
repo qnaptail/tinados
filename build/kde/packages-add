@@ -6,9 +6,9 @@
 # DESKTOP ENVIRONMENT (KDE PLASMA)
 ##########################################################
 
-#@kde-desktop-environment
+@kde-desktop-environment
 #kate
-@kde-desktop
+#@kde-desktop
 
 ##########################################################
 # HARDWARE / SYSTEM
@@ -60,7 +60,7 @@ fprintd-pam
 
 ### LOCALE & FONTS
 glibc-all-langpacks
-#fira-code-fonts
+fira-code-fonts
 
 ##########################################################
 # PACKAGE / SOFTWARE MANAGEMENT
@@ -70,9 +70,9 @@ glibc-all-langpacks
 
 distrobox
 flatpak
-nix-core
-#nix
-#nix-daemon
+#nix-core
+nix
+nix-daemon
 
 ##########################################################
 # TERMINAL / SHELL
