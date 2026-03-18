@@ -19,7 +19,7 @@ rsyslog
 dracut-config-rescue
 
 # Remove DNF
-dnf-data
+# dnf-data
 
 console-login-helper-messages
 qemu-user-static*
