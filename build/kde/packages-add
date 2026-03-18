@@ -6,9 +6,9 @@
 # DESKTOP ENVIRONMENT (KDE PLASMA)
 ##########################################################
 
-@kde-desktop-environment
+#@kde-desktop-environment
 #kate
-#@kde-desktop
+@kde-desktop
 
 ##########################################################
 # HARDWARE / SYSTEM
@@ -70,6 +70,7 @@ glibc-all-langpacks
 
 distrobox
 flatpak
+#nix-core
 nix
 nix-daemon
 
@@ -117,10 +118,10 @@ nix-daemon
 # VIRTUALISATION
 ##########################################################
 
-incus
-incus-tools
-libvirt-daemon-kvm
-libvirt-daemon-config-network
-virt-install
-virt-viewer
-virt-manager
+#incus
+#incus-tools
+#libvirt-daemon-kvm
+#libvirt-daemon-config-network
+#virt-install
+#virt-viewer
+#virt-manager

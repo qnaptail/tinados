@@ -42,14 +42,14 @@ alias l='ls -l'
 # alias lst='eza --sort newest -l'
 # alias lt='eza --tree'
 
-if [[ :$SHELLOPTS: =~ :(vi|emacs): ]]; then
-  eval "$(fzf --bash)"
-fi
+# if [[ :$SHELLOPTS: =~ :(vi|emacs): ]]; then
+#   eval "$(fzf --bash)"
+# fi
 
-if [[ $TERM != "dumb" ]]; then
-  eval "$(starship init bash --print-full-init)"
-  eval "$(zoxide init bash )"
-fi
+# if [[ $TERM != "dumb" ]]; then
+#   eval "$(starship init bash --print-full-init)"
+#   eval "$(zoxide init bash )"
+# fi
 
 function yy() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
