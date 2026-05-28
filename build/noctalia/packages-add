@@ -1,0 +1,77 @@
+##########################################################
+# List of packages to install on top of base image
+##########################################################
+
+##########################################################
+# HARDWARE / SYSTEM
+##########################################################
+
+@hardware-support
+
+### INFOS
+pciutils
+usbutils
+vulkan-tools
+libva-utils
+lm_sensors
+
+### DISK
+ntfs-3g
+nfs-utils
+
+### NETWORK
+NetworkManager
+NetworkManager-wifi
+nmap
+bind-utils
+firewalld
+wireguard-tools
+tailscale
+wget
+wol
+
+### MULTIMEDIA
+pipewire
+pipewire-pulseaudio
+pipewire-alsa
+pipewire-jack-audio-connection-kit
+pipewire-plugin-libcamera
+wireplumber
+easyeffects
+feh
+
+### POWER MANAGEMENT
+power-profiles-daemon
+powertop
+#tlp
+#zcfan
+
+### FINGERPRINT SENSOR
+fprintd
+fprintd-pam
+
+### LOCALE & FONTS
+glibc-all-langpacks
+fira-code-fonts
+
+##########################################################
+# DESKTOP ENVIRONMENT (COPR)
+##########################################################
+
+### WINDOWS MANAGER
+niri
+
+### QUICKSHELL
+noctalia-shell
+
+##########################################################
+# PACKAGE / SOFTWARE MANAGEMENT
+# https://github.com/89luca89/distrobox
+# https://docs.flatpak.org/en/latest/getting-started.html
+##########################################################
+
+distrobox
+flatpak
+nix
+nix-daemon
+
