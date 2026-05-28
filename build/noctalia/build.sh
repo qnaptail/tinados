@@ -21,8 +21,8 @@ cp -avf "/ctx/rootfs"/. /
 mkdir -p /usr/share/$OSNAME
 mkdir -p /usr/local/share/$OSNAME
 jq -r .packages[] /usr/share/rpm-ostree/treefile.json > /usr/local/share/$OSNAME/packages-base-image
-cp /ctx/build/kde/packages-add /usr/local/share/$OSNAME/packages-add
-cp /ctx/build/kde/packages-remove /usr/local/share/$OSNAME/packages-remove
+cp /ctx/build/tinados/packages-add /usr/local/share/$OSNAME/packages-add
+cp /ctx/build/tinados/packages-remove /usr/local/share/$OSNAME/packages-remove
 chmod  0644 /usr/local/share/$OSNAME/*
 
 # Create /nix store bind mount
