@@ -1,0 +1,18 @@
+[Unit]
+Description=Noctalia Shell
+Documentation=https://docs.noctalia.dev/
+After=graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart="/usr/bin/qs -c noctalia-shell"
+Restart=on-failure
+RestartSec=2
+
+# Wayland session variables
+Environment=XDG_CURRENT_DESKTOP=niri
+Environment=XDG_SESSION_TYPE=wayland
+
+[Install]
+WantedBy=default.target

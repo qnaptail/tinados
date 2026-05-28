@@ -59,12 +59,15 @@ system_services=(
     systemd-timesyncd.service
     systemd-resolved.service
     systemd-homed.service
+    greetd.service
 #     virtqemud.service
 #     zcfan.service # Thinkpad fan control
 )
 
 user_services=(
     podman.socket
+    noctalia-shell.service
+    gnome-keyring-daemon.service
 )
 
 mask_services=(

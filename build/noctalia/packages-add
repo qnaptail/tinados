@@ -60,9 +60,20 @@ fira-code-fonts
 
 ### WINDOWS MANAGER
 niri
+fuzzel
+udiskie
+gnome-keyring
+gnome-keyring-pam
+xdg-desktop-portal
+xdg-desktop-portal-gtk
+xwayland-satellite
 
 ### QUICKSHELL
 noctalia-shell
+
+### DISPLAY MANAGER
+greetd
+tuigreet
 
 ##########################################################
 # PACKAGE / SOFTWARE MANAGEMENT
