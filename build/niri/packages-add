@@ -114,39 +114,6 @@ nix
 nix-daemon
 
 ##########################################################
-# TERMINAL / SHELL
-##########################################################
-
-#alacritty
-foot
-zellij
-tmux
-
-fish
-starship
-zoxide
-fzf
-bat
-ripgrep
-fd-find
-tldr
-fastfetch
-
-vim-default-editor
-stow
-just
-jq
-yazi
-git
-gitui
-gh
-p7zip
-
-#opentofu
-#ansible
-#vim-ansible
-
-##########################################################
 # VIRTUALISATION
 ##########################################################
 
@@ -157,3 +124,5 @@ libvirt-daemon-config-network
 virt-install
 virt-viewer
 virt-manager
+
+

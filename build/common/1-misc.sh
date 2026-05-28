@@ -14,10 +14,10 @@ set -ouex pipefail
 # ENABLE ZRAM
 #######################################################################
 
-tee /usr/lib/systemd/zram-generator.conf <<'EOF'
-[zram0]
-zram-size = min(ram / 2, 8192)
-EOF
+# tee /usr/lib/systemd/zram-generator.conf <<'EOF'
+# [zram0]
+# zram-size = min(ram / 2, 8192)
+# EOF
 
 #######################################################################
 # CREATE DEFAULT USER

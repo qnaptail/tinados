@@ -20,13 +20,22 @@ FROM quay.io/fedora/fedora-bootc:44
 # RUN rm /opt && mkdir /opt
 
 ## Modifications
+# RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
+#     --mount=type=cache,dst=/var/cache \
+#     --mount=type=cache,dst=/var/log \
+#     --mount=type=tmpfs,dst=/tmp \
+#     /ctx/build/noctalia/build.sh && \
+#     /ctx/build/common/0-kernel.sh && \
+#     /ctx/build/common/1-misc.sh && \
+#     /ctx/build/common/2-infos.sh && \
+#     /ctx/build/common/3-cleanup.sh
+
+## Modifications
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
-    /ctx/build/kde/build.sh && \
-    /ctx/build/common/0-kernel.sh && \
-    /ctx/build/common/1-misc.sh && \
+    /ctx/build/noctalia/build.sh && \
     /ctx/build/common/2-infos.sh && \
     /ctx/build/common/3-cleanup.sh
 
