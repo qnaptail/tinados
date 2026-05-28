@@ -2,6 +2,9 @@
 
 set -ouex pipefail
 
+# LINT ERROR: "etc-usretc: Found /usr/etc - this is a bootc implementation detail and not supported to use in containers"
+rm -rf /usr/etc
+
 # Remove unnecessary files
 rm -rf /usr/share/doc
 rm -rf /usr/src
