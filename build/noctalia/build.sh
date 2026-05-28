@@ -32,7 +32,7 @@ mkdir -p /nix
 
 
 # Add Terra repository (needed for Noctalia)
-dnf5 install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
 # Install listed packages
 grep -vE '^#' /usr/local/share/$OSNAME/packages-add | xargs dnf5 -y install --allowerasing
